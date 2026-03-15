@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Team Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- PASSWORD GATE -->
+  <div class="password-gate" id="password-gate">
+    <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/03/cropped-cropped-Square-logo-eng.png" alt="Yinghua Academy" class="gate-logo">
+    <h1 id="gate-team-name">Track Team</h1>
+    <p class="subtitle" id="gate-subtitle">Track & Field — Team Hub</p>
+    <form class="password-form" id="password-form">
+      <input type="password" id="password-input" placeholder="Enter team password" autocomplete="off" autofocus>
+      <button type="submit">Enter</button>
+    </form>
+    <div class="password-error" id="password-error"></div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div class="app" id="app">
+    <header class="header">
+      <h1><img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/03/cropped-cropped-Square-logo-eng.png" alt="" class="header-logo"> <span id="team-name">Track Team</span></h1>
+      <div class="header-right">
+        <button class="logout-btn" id="logout-btn">Log Out</button>
+      </div>
+    </header>
+
+    <nav class="nav">
+      <button class="active" data-section="announcements">Announcements</button>
+      <button data-section="schedule">Schedule</button>
+      <button data-section="roster">Roster</button>
+      <button data-section="results">Results</button>
+      <button data-section="results2025">2025 Season</button>
+      <button data-section="records">Records</button>
+      <button data-section="expectations">Expectations</button>
+    </nav>
+
+    <main class="content">
+
+      <!-- Announcements -->
+      <div class="section active" id="section-announcements">
+        <h2 class="section-title">Announcements</h2>
+        <div id="announcements-list"></div>
+      </div>
+
+      <!-- Schedule -->
+      <div class="section" id="section-schedule">
+        <h2 class="section-title">Schedule</h2>
+        <div id="schedule-list"></div>
+      </div>
+
+      <!-- Roster -->
+      <div class="section" id="section-roster">
+        <h2 class="section-title">Team Roster</h2>
+        <div id="roster-content"></div>
+      </div>
+
+      <!-- Results -->
+      <div class="section" id="section-results">
+        <h2 class="section-title">Meet Results</h2>
+        <div id="results-list"></div>
+      </div>
+
+      <!-- 2025 Season Results -->
+      <div class="section" id="section-results2025">
+        <h2 class="section-title">2025 Season Results</h2>
+        <div id="results2025-content"></div>
+      </div>
+
+      <!-- Records -->
+      <div class="section" id="section-records">
+        <h2 class="section-title">Team Records</h2>
+        <div id="records-content"></div>
+      </div>
+
+      <!-- Expectations -->
+      <div class="section" id="section-expectations">
+        <h2 class="section-title">Athletic Behavior Expectations</h2>
+        <div id="expectations-content"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

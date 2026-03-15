@@ -1,0 +1,640 @@
+// ============================================================
+// TRACK TEAM HUB — EDITABLE DATA
+// Update the values below to keep your site current.
+// ============================================================
+
+const TEAM_PASSWORD = "gofast2026"; // Change this to your team password
+
+const TEAM_NAME = "Yinghua Academy Dragons";
+const TEAM_SUBTITLE = "Track & Field";
+const TEAM_COLORS = {
+  primary: "#790E1D",   // Yinghua maroon
+  accent: "#FFD700",    // Yinghua gold
+};
+
+// ---- ANNOUNCEMENTS ----
+const ANNOUNCEMENTS = [
+  {
+    date: "2026-03-14",
+    title: "Welcome to the 2026 Season!",
+    body: "We're excited to kick off another great year. First practice is Monday, March 16. Bring running shoes, water, and a great attitude!",
+  },
+  {
+    date: "2026-03-10",
+    title: "Uniform Pickup",
+    body: "Uniforms will be available for pickup in the gym lobby on Friday, March 13 from 3:00–5:00 PM.",
+  },
+];
+
+// ---- SCHEDULE ----
+// type: "practice" or "meet"
+// Practices: Tue & Thu 3:30–5:00 PM. Pickup at 5:00 PM from field behind school.
+// NOTE: ALL BUS RIDES ARE ONE WAY. Parents must pick up from meet.
+const SCHEDULE = [
+  // ---- WEEK 1 ----
+  { date: "2026-04-02", type: "practice", title: "Practice — Week 1", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "400m (50-75% pace), 300m (50-75% pace), 200m (75-90%), 2x100m (best effort). Introduce sprint form.",
+      distance: "Introduce distance events & basic pacing. Fartlek \"Speed Play\" for 20 min.",
+      field: "No field events or hurdles Week 1.",
+      team: "Split into groups for introductions. Backup indoor plan in classroom if weather is bad.",
+    }},
+  { date: "2026-04-07", type: "practice", title: "Practice — Week 1", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "4x300m (50-75% pace).",
+      distance: "4x300m (50-75% pace).",
+      field: "No field events or hurdles Week 1.",
+      team: "End with 4x100m relays.",
+    }},
+  // ---- NO SCHOOL ----
+  { date: "2026-04-09", type: "practice", title: "No School — NO Practice", time: "", location: "Train at home", notes: "" },
+  // ---- WEEK 2 ----
+  { date: "2026-04-14", type: "practice", title: "Practice — Week 2", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "Sprint drills. 4x200m (50-75% pace).",
+      distance: "3 min on/steady to 2 min conversational for 20-25 min.",
+      field: "Introduce hurdles, discus, and shot put.",
+      team: "Strength circuit: jump rope, push-ups, lunges, planks. Line sprints.",
+    }},
+  { date: "2026-04-16", type: "practice", title: "Pre-Meet Practice — Week 2", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
+      distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
+      field: "Light hurdle walk-throughs. Review shot put & discus form.",
+      team: "Go over meet events & assignments for St. Paul Central.",
+    }},
+  // ---- MEET ----
+  { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "TBD", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104" },
+  // ---- WEEK 3 ----
+  { date: "2026-04-21", type: "practice", title: "Pre-Meet Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
+      distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
+      field: "Light hurdle walk-throughs. Review discus & shot put form.",
+      team: "St. Paul Central debrief. Go over Richfield meet events & assignments.",
+    }},
+  { date: "2026-04-22", type: "meet", title: "Richfield MS", time: "4:30 PM", location: "Richfield HS — 7001 Harriet Ave, Richfield, MN 55423", notes: "Grades 6-8 · Dismiss 3:15 · Bus 3:30" },
+  { date: "2026-04-23", type: "practice", title: "Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "Sprint drills, shuttle relays.",
+      distance: "Hills: 10-15x sprint up / recover down. 2x400m (75%).",
+      field: "Practice hurdles, discus, shot put.",
+      team: "Richfield meet debrief. Sign up for upcoming meet events.",
+    }},
+  // ---- WEEK 4 ----
+  { date: "2026-04-28", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "4x100m relay repeats. Sprint form drills.",
+      distance: "Fartlek with pace groups (15 min conversational). 5 min handoff practice.",
+      field: "Practice hurdles, discus, shot put, long jump.",
+      team: "Richfield meet debrief.",
+    }},
+  { date: "2026-04-30", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "400m relay teams (2-3 people; 4x400m each).",
+      distance: "400m relay teams (2-3 people; 4x400m each).",
+      field: "Practice hurdles, discus, shot put.",
+      team: "Sign up for Bloomington meet entries.",
+    }},
+  // ---- WEEK 5 ----
+  { date: "2026-05-05", type: "practice", title: "Pre-Meet Practice — Week 5", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x200m, 2x100m.",
+      distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
+      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      team: "Finalize Bloomington meet sign-ups.",
+    }},
+  { date: "2026-05-06", type: "meet", title: "Olson MS–Bloomington", time: "4:15 PM", location: "Jefferson HS — 4001 W 102nd St, Bloomington, MN 55437", notes: "Grades 6-8 · Dismiss 3:05 · Bus 3:15" },
+  { date: "2026-05-07", type: "practice", title: "Practice — Week 5", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "Sprint drills, shuttle relays.",
+      distance: "Fartlek with pace groups (15 min conversational).",
+      field: "Practice hurdles, discus, shot put.",
+      team: "Bloomington meet debrief. Sign up for Prior Lake meet.",
+    }},
+  // ---- WEEK 6 ----
+  { date: "2026-05-12", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x200m, 2x100m.",
+      distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
+      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      team: "Sign up for Prior Lake meet.",
+    }},
+  { date: "2026-05-13", type: "meet", title: "Prior Lake", time: "4:00 PM", location: "Prior Lake HS — 7575 150th St W, Savage, MN 55378", notes: "Grades 6-8 · Dismiss 2:50 · Bus 3:00" },
+  { date: "2026-05-14", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
+      distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
+      field: "Light hurdle walk-throughs. Review discus & shot put form.",
+      team: "Finalize TCGIS entries & event assignments.",
+    }},
+  { date: "2026-05-15", type: "meet", title: "TCGIS", time: "TBD", location: "Concordia Academy — 2400 Dale St N, Roseville, MN 55113", notes: "Grades 5-8" },
+  // ---- WEEK 7 ----
+  { date: "2026-05-19", type: "practice", title: "Pre-Meet Practice — Week 7", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
+    plan: {
+      sprints: "Pre-meet: warm-up + 2x300m, 2x100m.",
+      distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
+      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      team: "Split into teams. Sign up for Yinghua In-House Meet events.",
+    }},
+  { date: "2026-05-21", type: "practice", title: "Last Practice & Party", time: "3:30–6:00 PM", location: "Field behind school", notes: "Pickup at 6:00 PM",
+    plan: {
+      sprints: "Fun relays and games.",
+      distance: "Fun relays and games.",
+      field: "Fun relays and games.",
+      team: "End-of-season celebration & party!",
+    }},
+  { date: "2026-05-22", type: "meet", title: "Yinghua In-House Meet & End of Season Party", time: "3:45 PM", location: "Yinghua / NE Park", notes: "Grades 5-8 · Dismiss 3:30" },
+];
+
+// ---- ROSTER ----
+// events: array of event names (add as athletes are assigned)
+const ROSTER = [
+  { name: "Reuben Addington", grade: 6, events: [] },
+  { name: "Brighton Balk Mmary", grade: 5, events: [] },
+  { name: "Althea Bortel Fielder", grade: 7, events: [] },
+  { name: "Keva Bowron", grade: 7, events: [] },
+  { name: "Teagan Bowron", grade: 5, events: [] },
+  { name: "Liam Bursell", grade: 7, events: [] },
+  { name: "Mila Bursell", grade: 7, events: [] },
+  { name: "Grayson Chon", grade: 7, events: [] },
+  { name: "Cailee Pham", grade: 8, events: [] },
+  { name: "Cooper Coblentz", grade: 8, events: [] },
+  { name: "Hudson Coblentz", grade: 8, events: [] },
+  { name: "Nathan Coblentz", grade: 8, events: [] },
+  { name: "Kai Dinger", grade: 7, events: [] },
+  { name: "Alexandra Ebinger", grade: 6, events: [] },
+  { name: "Cora Ebinger", grade: 8, events: [] },
+  { name: "Jace Euphosin", grade: 5, events: [] },
+  { name: "Elyse Folbrecht", grade: 6, events: [] },
+  { name: "Walter Folbrecht", grade: 5, events: [] },
+  { name: "Remy Fortin", grade: 7, events: [] },
+  { name: "Gabriella Gruber", grade: 5, events: [] },
+  { name: "Vienna Haas", grade: 7, events: [] },
+  { name: "Aedan Herman", grade: 8, events: [] },
+  { name: "Jasper Hill", grade: 5, events: [] },
+  { name: "Ben Hinrichs", grade: 8, events: [] },
+  { name: "Sage Houdek", grade: 8, events: [] },
+  { name: "Ari Klapperich-Khuu", grade: 7, events: [] },
+  { name: "Remi Klapperich-Khuu", grade: 7, events: [] },
+  { name: "Marcus Kunc", grade: 6, events: [] },
+  { name: "Mattias Kunc", grade: 8, events: [] },
+  { name: "Avinash Landahl", grade: 5, events: [] },
+  { name: "Devin Lindquist", grade: 6, events: [] },
+  { name: "Annika Peterson", grade: 7, events: [] },
+  { name: "Audrey Roffe", grade: 7, events: [] },
+  { name: "Liv Romsaas", grade: 5, events: [] },
+  { name: "Frank Ryan", grade: 5, events: [] },
+  { name: "Louis Ryan", grade: 7, events: [] },
+  { name: "Charlotte Saeger", grade: 5, events: [] },
+  { name: "Arya Sanaka", grade: 7, events: [] },
+  { name: "Leo Shu", grade: 8, events: [] },
+  { name: "Harper Stewart", grade: 5, events: [] },
+  { name: "Ben Surla", grade: 7, events: [] },
+  { name: "Otto Terhark", grade: 5, events: [] },
+  { name: "Jin Trenh", grade: 8, events: [] },
+  { name: "Thea Trenh", grade: 5, events: [] },
+  { name: "Ethan Tschida", grade: 6, events: [] },
+  { name: "Isabel Tschida", grade: 8, events: [] },
+  { name: "Caleb Wilson", grade: 7, events: [] },
+  { name: "Isaac Wilson", grade: 7, events: [] },
+  { name: "Tiancheng Yang", grade: 5, events: [] },
+  { name: "Tianming Yang", grade: 5, events: [] },
+];
+
+// ---- COACHES ----
+const COACHES = [
+  { name: "Coach Addington", role: "Head Coach", email: "" },
+  { name: "Coach Rivera", role: "Assistant Coach — Sprints", email: "" },
+  { name: "Coach Park", role: "Assistant Coach — Throws", email: "" },
+];
+
+// ---- MEET RESULTS ----
+// Add results after each meet
+const RESULTS = [];
+
+// ---- TEAM RECORDS ----
+const RECORDS = [];
+
+// ---- EXPECTATIONS ----
+const EXPECTATIONS = {
+  intro: "Our goal is to have a positive season where student athletes, coaches, and parents can work together to create an environment that is productive and cohesive for everyone. Students are expected to conduct themselves in a manner which follows the behavior code for Yinghua Academy. Participation in extracurricular activities is only permissible if the student is academically eligible and if the student acts in a way which is in accordance with this behavior code.",
+  formLink: "",
+  sections: [
+    {
+      title: "Practice",
+      rules: [
+        "I will work hard at practice and support my teammates to the best of my ability.",
+        "I will show respect to my coach and teammates at all times. I am there to learn and I will not talk when the coach is talking.",
+        "I will go to all practices and arrive on time. If I am late due to a teacher talking with me or a make-up test, I will arrive with a pass. If I am sick or cannot attend practice, I or my parents will contact the coach by email.",
+        "I will not be \"Physical.\" Examples: kicking a basketball or volleyball, throwing a ball at someone, tripping or attempting to trip, push, poke, wrestle, spit, fight…",
+        "I will not disrupt others. Examples: throwing grass, being silly, making funny noises, bringing toys or objects to practice…",
+        "Before I start my practice warm up I will help put away other equipment if needed.",
+      ],
+      consequences: [
+        "I will be given a reminder to stay on task. The coach will remind the player of the expectations.",
+        "After a reminder the coach will use TAB: Take a Break One: the athlete will move away from activity and reset (re-enter practice when ready). Take a Break Two: the athlete will move away from activity and may rejoin practice only after a conversation with the coach. Take a Break Three: the athlete will move away from activity and will sit and watch the rest of the practice (parent will be emailed, called or a discussion at pick up). TAB 3 may result in loss of some game time.",
+        "Repeated behavior/disruption issues: The athlete may have to sit and watch, write an apology, sit near the Athletic Director's office, game suspension or a one-week suspension (this includes at least one game).",
+        "Continued behavior/disruption issues (athlete shows little to no change): the Athletic Director will work with the Student Development and Family Liaison team to come up with a solution/consequence. This could result in expulsion from the team.",
+      ],
+    },
+    {
+      title: "Meets / Games",
+      rules: [
+        "I will be respectful to my coach, teammates, opponents, referees and parents/fans.",
+        "I will display good sportsmanship at all times.",
+        "I will help clean up after the game. Example: picking up trash, picking up balls, putting away chairs…",
+        "I will manage myself in the bleachers when watching my teammates. This is before a game or after a game. I must stay in the gymnasium area.",
+        "Every player will treat all teammates with acceptance, respect, and friendship.",
+      ],
+      consequences: [
+        "I will apologize to whoever has been impacted such as players, coaches, or referees.",
+        "I understand that I may have reduced playing time.",
+        "I understand that I may be suspended from practices or games.",
+      ],
+    },
+    {
+      title: "Academics",
+      rules: [
+        "I will do my best to be focused in class.",
+        "I will do my homework.",
+        "I will work hard to keep up with my work.",
+      ],
+      consequences: [
+        "If I do not meet the academic expectations, I understand that this may impact my practice or playing time.",
+      ],
+    },
+    {
+      title: "Classroom Behavior",
+      rules: [
+        "I will be a good role model in the classroom. When appropriate or asked, I will be a leader in the classroom.",
+        "I will respect my teachers and other staff.",
+        "I will not distract or disrupt learning for classmates.",
+      ],
+      consequences: [
+        "If I do not meet the classroom behavior expectations, I understand that this may impact my practice or playing time.",
+      ],
+    },
+    {
+      title: "Away Games",
+      rules: [
+        "I will take care of all my own belongings and trash.",
+        "I will show respect to the host school.",
+        "I will be a fine representative of Yinghua Academy.",
+      ],
+    },
+    {
+      title: "Bus Expectations",
+      rules: [
+        "No eating on the bus. I can eat my snack near the entrance to the gym.",
+        "I will use a quiet voice and stay seated on the bus.",
+        "I will be respectful, responsible and helpful.",
+        "I will stay seated at all times.",
+      ],
+      consequences: [
+        "If I do not meet the bus expectations, I will not be allowed to ride the bus. This can be a one time or season suspension. Should this happen, I understand that my parents will be responsible to get me to the games.",
+      ],
+    },
+    {
+      title: "Parents",
+      rules: [
+        "I will respect the coach, referee, players and opponents.",
+        "I will cheer and be a role model of good sportsmanship.",
+        "I will let the coaches coach.",
+        "I will pick up my child on time from practices and games. Parents are responsible for picking up their child from away games (bus or carpool from school is a one way ride).",
+      ],
+    },
+    {
+      title: "Other Important Policies",
+      rules: [
+        "ABSENCE FROM SCHOOL: no practice or game that day (there are some exceptions).",
+        "SCHOOL SUSPENSION OR IN-SCHOOL SUSPENSION (ISS): the student cannot participate in that day's practice or game.",
+        "RULE OF 3 (3 times): Repetitive inappropriate behavior, skipping practice or other issues will result in a game(s) suspension. Skipping once or twice may lead to other consequences worked out with the coach and Athletic Director.",
+        "DRUG, ALCOHOL, TOBACCO or VAPING & HARASSMENT: We will use the MN State High School Eligibility Rules as a general guideline. Infraction consequences will be adapted for the middle schooler thought process.",
+      ],
+    },
+  ],
+};
+
+// ---- 2025 SEASON RESULTS ----
+const RESULTS_2025 = {
+  season: "2025",
+  events: [
+    {
+      name: "100m Hurdles",
+      results: [
+        { athlete: "Ada Light-Haberstroh", mark: "18.07" },
+        { athlete: "Ari Klapperich-Khuu", mark: "19.80" },
+        { athlete: "Arthur Goben", mark: "20.10" },
+        { athlete: "Hazel Hill", mark: "21.20" },
+        { athlete: "Orianna Gruber", mark: "22.00" },
+        { athlete: "Santiago Guzman-Neva", mark: "22.24" },
+        { athlete: "Keva Bowron", mark: "22.90" },
+        { athlete: "Christopher Sabatke", mark: "23.33" },
+        { athlete: "Albin Tyborski", mark: "28.80" },
+        { athlete: "Althea Bortel Fielder", mark: "29.35" },
+      ],
+    },
+    {
+      name: "100m Dash",
+      results: [
+        { athlete: "Sylvia Martin", mark: "13.48" },
+        { athlete: "Ian Lindquist", mark: "13.66" },
+        { athlete: "Owen Colai", mark: "13.80" },
+        { athlete: "Ada Light-Haberstroh", mark: "14.00" },
+        { athlete: "Albin Tyborski", mark: "14.10" },
+        { athlete: "Nathan Coblentz", mark: "14.20" },
+        { athlete: "Arthur Goben", mark: "14.44" },
+        { athlete: "Addis Demere", mark: "14.60" },
+        { athlete: "Santiago Guzman-Neva", mark: "14.90" },
+        { athlete: "Orianna Gruber", mark: "14.91" },
+        { athlete: "Isabel Tschida", mark: "15.30" },
+        { athlete: "Cailee Pham", mark: "15.50" },
+        { athlete: "Devin Lindquist", mark: "15.50" },
+        { athlete: "Ari Klapperich-Khuu", mark: "15.50" },
+        { athlete: "Hudson Coblentz", mark: "15.50" },
+        { athlete: "Keva Bowron", mark: "15.70" },
+        { athlete: "Saoirse Bowron", mark: "15.80" },
+        { athlete: "Althea Bortel Fielder", mark: "16.10" },
+        { athlete: "Audrey Roffe", mark: "16.10" },
+        { athlete: "Hazel Hill", mark: "16.07" },
+        { athlete: "Evelyn Evans", mark: "16.59" },
+        { athlete: "Londyn Thomas", mark: "16.60" },
+        { athlete: "Naomi Hefferan", mark: "16.60" },
+        { athlete: "Perrin Light-Haberstroh", mark: "16.70" },
+        { athlete: "Finley Cox", mark: "17.10" },
+        { athlete: "Marcus Kunc", mark: "18.13" },
+        { athlete: "Remi Klapperich-Khuu", mark: "19.50" },
+      ],
+    },
+    {
+      name: "200m Run",
+      results: [
+        { athlete: "Sylvia Martin", mark: "29.74" },
+        { athlete: "Owen Colai", mark: "30.57" },
+        { athlete: "Nathan Coblentz", mark: "31.03" },
+        { athlete: "Ada Light-Haberstroh", mark: "31.30" },
+        { athlete: "Saoirse Bowron", mark: "31.70" },
+        { athlete: "Keva Bowron", mark: "33.80" },
+        { athlete: "Ari Klapperich-Khuu", mark: "34.30" },
+        { athlete: "Addis Demere", mark: "35.00" },
+        { athlete: "Audrey Roffe", mark: "36.98" },
+        { athlete: "Perrin Light-Haberstroh", mark: "37.12" },
+        { athlete: "Evelyn Evans", mark: "39.43" },
+        { athlete: "Finley Cox", mark: "39.70" },
+        { athlete: "Ethan Tschida", mark: "44.37" },
+        { athlete: "Quentin Moy-Gottfried", mark: "45.80" },
+        { athlete: "Grayson Chon", mark: "52.20" },
+      ],
+    },
+    {
+      name: "800m Run",
+      results: [
+        { athlete: "Sawyer Schulz", mark: "2:42" },
+        { athlete: "Duyen Nguyen", mark: "3:09" },
+        { athlete: "Alexandra Ebinger", mark: "3:16" },
+        { athlete: "Amelia Roddy", mark: "3:17" },
+        { athlete: "Devin Lindquist", mark: "3:18" },
+        { athlete: "Cora Ebinger", mark: "3:54" },
+        { athlete: "Hazel Courtney", mark: "4:22" },
+      ],
+    },
+    {
+      name: "1600m Run",
+      results: [
+        { athlete: "Sawyer Schulz", mark: "5:51" },
+        { athlete: "Isaac Jasper", mark: "6:19" },
+        { athlete: "Ben Surla", mark: "6:23" },
+        { athlete: "Rowan McGregor", mark: "6:29" },
+        { athlete: "Mattias Kunc", mark: "6:37" },
+        { athlete: "Duyen Nguyen", mark: "6:41" },
+        { athlete: "Amelia Roddy", mark: "7:41" },
+        { athlete: "Cora Ebinger", mark: "7:52" },
+        { athlete: "Audrey Roffe", mark: "7:55" },
+        { athlete: "Marcus Kunc", mark: "8:23" },
+        { athlete: "Evelyn Evans", mark: "8:29" },
+        { athlete: "Remi Klapperich-Khuu", mark: "9:23" },
+      ],
+    },
+    {
+      name: "4x200m Relay",
+      results: [
+        { athlete: "Anika Robinson, Duyen Nguyen, Isaac Jasper, Sawyer Schulz", mark: "2:03" },
+        { athlete: "Addis Demere, Nathan Coblentz, Ian Lindquist, Owen Colai", mark: "2:08" },
+        { athlete: "Ada Light-Haberstroh, Orianna Gruber, Hazel Hill, Saoirse Bowron", mark: "2:15" },
+        { athlete: "Rowan McGregor, Kai Dinger, Ben Surla, Ari Klapperich-Khuu", mark: "2:19" },
+        { athlete: "Cora Ebinger, Isabel Tschida, Cailee Pham, Londyn Thomas", mark: "2:27" },
+        { athlete: "Keva Bowron, Thea Trenh, Elyse Folbrecht, Perrin Light-Haberstroh", mark: "2:28" },
+        { athlete: "Reuben Addington, Devin Lindquist, Remi Klapperich-Khuu, Marcus Kunc", mark: "2:41" },
+        { athlete: "Amelia Roddy, Quentin Moy-Gottfried, Ava Copperud, Kayleigh Thomas", mark: "2:46" },
+      ],
+    },
+    {
+      name: "Long Jump",
+      results: [
+        { athlete: "Albin Tyborski", mark: "12' 4\"" },
+        { athlete: "Arthur Goben", mark: "12' 10\"" },
+        { athlete: "Owen Colai", mark: "11' 10\"" },
+        { athlete: "Ada Light-Haberstroh", mark: "10' 9\"" },
+        { athlete: "Alexandra Ebinger", mark: "10' 9\"" },
+        { athlete: "Isabel Tschida", mark: "10' 1.5\"" },
+        { athlete: "Mattias Kunc", mark: "10' 1\"" },
+        { athlete: "Greyson DeWalt", mark: "10'" },
+        { athlete: "Perrin Light-Haberstroh", mark: "9'" },
+        { athlete: "Amelia Roddy", mark: "8' 9\"" },
+        { athlete: "Kayleigh Thomas", mark: "8' 10\"" },
+        { athlete: "Audrey Roffe", mark: "8' 3\"" },
+        { athlete: "Ava Copperud", mark: "8' 1\"" },
+        { athlete: "Gabriel Nowariak", mark: "7'" },
+        { athlete: "Evelyn Evans", mark: "7' 5.5\"" },
+        { athlete: "Ethan Tschida", mark: "6' 10\"" },
+        { athlete: "Hazel Courtney", mark: "6' 7\"" },
+      ],
+    },
+    {
+      name: "Shot Put",
+      results: [
+        { athlete: "Elyse Folbrecht", mark: "" },
+        { athlete: "Addis Demere", mark: "" },
+        { athlete: "Nathan Coblentz", mark: "" },
+        { athlete: "Anika Robinson", mark: "" },
+        { athlete: "Silas Meyer", mark: "" },
+        { athlete: "Cora Ebinger", mark: "" },
+        { athlete: "Ethan Tschida", mark: "" },
+        { athlete: "Sylvia Martin", mark: "" },
+        { athlete: "Isaac Jasper", mark: "" },
+        { athlete: "Finley Cox", mark: "" },
+        { athlete: "Orianna Gruber", mark: "" },
+        { athlete: "Hazel Hill", mark: "" },
+        { athlete: "Saoirse Bowron", mark: "" },
+      ],
+    },
+    {
+      name: "Discus",
+      results: [
+        { athlete: "Elyse Folbrecht", mark: "" },
+        { athlete: "Keva Bowron", mark: "" },
+        { athlete: "Sawyer Schulz", mark: "" },
+        { athlete: "Reuben Addington", mark: "" },
+        { athlete: "Devin Lindquist", mark: "" },
+        { athlete: "Ian Lindquist", mark: "" },
+        { athlete: "Grayson Chon", mark: "" },
+        { athlete: "Orianna Gruber", mark: "" },
+        { athlete: "Hazel Hill", mark: "" },
+        { athlete: "Marcus Kunc", mark: "" },
+        { athlete: "Remi Klapperich-Khuu", mark: "" },
+        { athlete: "Rowan McGregor", mark: "" },
+        { athlete: "Greyson DeWalt", mark: "" },
+      ],
+    },
+  ],
+  // ---- IN-HOUSE MEET RESULTS ----
+  inHouseMeet: {
+    title: "Yinghua In-House Meet",
+    teams: ["Robert", "Imagine Pope Kiwis III", "Jurassic Chickens", "Red Dead Cheetahs"],
+    events: [
+      {
+        name: "100m Hurdles",
+        results: [
+          { athlete: "Albin Tyborski", team: "Jurassic Chickens", mark: "16.60", place: "1st" },
+          { athlete: "Ada Light-Haberstroh", team: "Imagine Pope Kiwis III", mark: "18.08", place: "1st" },
+          { athlete: "Anika Robinson", team: "Red Dead Cheetahs", mark: "18.17", place: "2nd" },
+          { athlete: "Ari Klapperich-Khuu", team: "Imagine Pope Kiwis III", mark: "18.27", place: "1st" },
+          { athlete: "Keva Bowron", team: "Imagine Pope Kiwis III", mark: "18.70", place: "1st" },
+          { athlete: "Nathan Coblentz", team: "Robert", mark: "19.03", place: "2nd" },
+          { athlete: "Orianna Gruber", team: "Robert", mark: "19.00", place: "3rd" },
+          { athlete: "Cooper Coblentz", team: "Imagine Pope Kiwis III", mark: "19.05", place: "3rd" },
+          { athlete: "Cora Clark", team: "Imagine Pope Kiwis III", mark: "19.07", place: "4th" },
+          { athlete: "Hazel Hill", team: "Jurassic Chickens", mark: "19.17", place: "5th" },
+          { athlete: "Santiago Guzman-Neva", team: "Imagine Pope Kiwis III", mark: "19.36", place: "4th" },
+          { athlete: "Christopher Sabatke", team: "Imagine Pope Kiwis III", mark: "19.54", place: "5th" },
+          { athlete: "Rowan McGregor", team: "Robert", mark: "20.80", place: "" },
+          { athlete: "Alexandra Ebinger", team: "Red Dead Cheetahs", mark: "21.83", place: "3rd" },
+          { athlete: "Evelyn Evans", team: "Robert", mark: "21.82", place: "2nd" },
+          { athlete: "Perrin Light-Haberstroh", team: "Red Dead Cheetahs", mark: "21.93", place: "4th" },
+          { athlete: "Mattias Kunc", team: "Red Dead Cheetahs", mark: "22.00", place: "" },
+          { athlete: "Gabriel Nowariak", team: "Red Dead Cheetahs", mark: "22.50", place: "2nd" },
+          { athlete: "Ava Copperud", team: "Robert", mark: "26.38", place: "5th" },
+          { athlete: "Isabel Tschida", team: "Red Dead Cheetahs", mark: "26.38", place: "" },
+        ],
+      },
+      {
+        name: "100m Dash",
+        results: [
+          { athlete: "Jonathan Thomas", team: "Imagine Pope Kiwis III", mark: "13.41", place: "1st" },
+          { athlete: "Jin Trenh", team: "Imagine Pope Kiwis III", mark: "13.56", place: "2nd" },
+          { athlete: "Ian Lindquist", team: "Red Dead Cheetahs", mark: "13.61", place: "3rd" },
+          { athlete: "Nathan Coblentz", team: "Robert", mark: "13.96", place: "4th" },
+          { athlete: "Cooper Coblentz", team: "Imagine Pope Kiwis III", mark: "13.96", place: "5th" },
+          { athlete: "Albin Tyborski", team: "Jurassic Chickens", mark: "14.40", place: "6th" },
+          { athlete: "Kai Dinger", team: "Jurassic Chickens", mark: "14.48", place: "1st" },
+          { athlete: "Ada Light-Haberstroh", team: "Imagine Pope Kiwis III", mark: "14.97", place: "1st" },
+          { athlete: "Ari Klapperich-Khuu", team: "Imagine Pope Kiwis III", mark: "15.18", place: "2nd" },
+          { athlete: "Isaac Wilson", team: "Red Dead Cheetahs", mark: "15.22", place: "3rd" },
+          { athlete: "Isabel Tschida", team: "Red Dead Cheetahs", mark: "15.37", place: "2nd" },
+          { athlete: "Cailee Pham", team: "Jurassic Chickens", mark: "15.37", place: "3rd" },
+          { athlete: "Anika Robinson", team: "Red Dead Cheetahs", mark: "15.55", place: "4th" },
+          { athlete: "Addis Demere", team: "Jurassic Chickens", mark: "15.68", place: "7th" },
+          { athlete: "Devin Lindquist", team: "Jurassic Chickens", mark: "15.71", place: "4th" },
+          { athlete: "Hazel Hill", team: "Jurassic Chickens", mark: "15.81", place: "5th" },
+          { athlete: "Christopher Sabatke", team: "Imagine Pope Kiwis III", mark: "15.97", place: "8th" },
+          { athlete: "Orianna Gruber", team: "Robert", mark: "15.98", place: "6th" },
+          { athlete: "Keva Bowron", team: "Imagine Pope Kiwis III", mark: "16.00", place: "1st" },
+          { athlete: "Saoirse Bowron", team: "Robert", mark: "16.59", place: "7th" },
+          { athlete: "Thea Trenh", team: "Robert", mark: "16.59", place: "2nd" },
+          { athlete: "Cora Clark", team: "Imagine Pope Kiwis III", mark: "16.68", place: "8th" },
+          { athlete: "Alexandra Ebinger", team: "Red Dead Cheetahs", mark: "16.73", place: "3rd" },
+          { athlete: "Londyn Thomas", team: "Robert", mark: "16.90", place: "9th" },
+          { athlete: "Ben Surla", team: "Robert", mark: "16.98", place: "5th" },
+          { athlete: "Audrey Roffe", team: "Jurassic Chickens", mark: "17.69", place: "4th" },
+          { athlete: "Gabriel Nowariak", team: "Red Dead Cheetahs", mark: "17.75", place: "" },
+          { athlete: "Perrin Light-Haberstroh", team: "Red Dead Cheetahs", mark: "17.87", place: "5th" },
+          { athlete: "Ethan Tschida", team: "Imagine Pope Kiwis III", mark: "18.14", place: "" },
+          { athlete: "Remi Klapperich-Khuu", team: "Robert", mark: "19.25", place: "" },
+          { athlete: "Reuben Addington", team: "Jurassic Chickens", mark: "19.54", place: "" },
+        ],
+      },
+      {
+        name: "200m Run",
+        results: [
+          { athlete: "Ian Lindquist", team: "Red Dead Cheetahs", mark: "29.10", place: "1st" },
+          { athlete: "Albin Tyborski", team: "Jurassic Chickens", mark: "31.03", place: "2nd" },
+          { athlete: "Cooper Coblentz", team: "Imagine Pope Kiwis III", mark: "31.04", place: "3rd" },
+          { athlete: "Nathan Coblentz", team: "Robert", mark: "31.19", place: "4th" },
+          { athlete: "Amelia Roddy", team: "Jurassic Chickens", mark: "31.33", place: "1st" },
+          { athlete: "Thea Trenh", team: "Robert", mark: "31.35", place: "2nd" },
+          { athlete: "Ada Light-Haberstroh", team: "Imagine Pope Kiwis III", mark: "31.40", place: "1st" },
+          { athlete: "Saoirse Bowron", team: "Robert", mark: "32.84", place: "2nd" },
+          { athlete: "Santiago Guzman-Neva", team: "Imagine Pope Kiwis III", mark: "32.88", place: "5th" },
+          { athlete: "Ari Klapperich-Khuu", team: "Imagine Pope Kiwis III", mark: "33.10", place: "1st" },
+          { athlete: "Christopher Sabatke", team: "Imagine Pope Kiwis III", mark: "33.66", place: "6th" },
+          { athlete: "Addis Demere", team: "Jurassic Chickens", mark: "34.09", place: "7th" },
+          { athlete: "Grant Owens", team: "Robert", mark: "34.16", place: "8th" },
+          { athlete: "Keva Bowron", team: "Imagine Pope Kiwis III", mark: "34.55", place: "3rd" },
+          { athlete: "Orianna Gruber", team: "Robert", mark: "34.70", place: "3rd" },
+          { athlete: "Hudson Coblentz", team: "Red Dead Cheetahs", mark: "34.76", place: "9th" },
+          { athlete: "Hazel Hill", team: "Jurassic Chickens", mark: "35.13", place: "4th" },
+          { athlete: "Gabriel Nowariak", team: "Red Dead Cheetahs", mark: "36.00", place: "2nd" },
+          { athlete: "Isaac Wilson", team: "Red Dead Cheetahs", mark: "36.12", place: "10th" },
+          { athlete: "Devin Lindquist", team: "Jurassic Chickens", mark: "36.90", place: "3rd" },
+          { athlete: "Londyn Thomas", team: "Robert", mark: "36.90", place: "5th" },
+          { athlete: "Audrey Roffe", team: "Jurassic Chickens", mark: "37.01", place: "4th" },
+          { athlete: "Perrin Light-Haberstroh", team: "Red Dead Cheetahs", mark: "40.00", place: "5th" },
+          { athlete: "Alexandra Ebinger", team: "Red Dead Cheetahs", mark: "40.46", place: "" },
+          { athlete: "Evelyn Evans", team: "Robert", mark: "41.61", place: "" },
+          { athlete: "Ethan Tschida", team: "Imagine Pope Kiwis III", mark: "42.13", place: "4th" },
+          { athlete: "Finley Cox", team: "Jurassic Chickens", mark: "42.13", place: "" },
+          { athlete: "Ava Copperud", team: "Robert", mark: "43.47", place: "" },
+          { athlete: "Kayleigh Thomas", team: "Robert", mark: "43.93", place: "" },
+          { athlete: "Hazel Courtney", team: "Imagine Pope Kiwis III", mark: "49.58", place: "" },
+        ],
+      },
+      {
+        name: "400m Run",
+        results: [
+          { athlete: "Sawyer Schulz", team: "Jurassic Chickens", mark: "", place: "1st" },
+          { athlete: "Gabriel Nowariak", team: "Red Dead Cheetahs", mark: "1:24", place: "2nd" },
+          { athlete: "Duyen Nguyen", team: "Imagine Pope Kiwis III", mark: "", place: "1st" },
+          { athlete: "Ben Surla", team: "Robert", mark: "", place: "1st" },
+          { athlete: "Cooper Coblentz", team: "Imagine Pope Kiwis III", mark: "", place: "2nd" },
+          { athlete: "Isaac Jasper", team: "Robert", mark: "", place: "3rd" },
+          { athlete: "Caleb Wilson", team: "Imagine Pope Kiwis III", mark: "1:31", place: "3rd" },
+          { athlete: "Jasper McGregor", team: "Robert", mark: "1:37", place: "" },
+          { athlete: "Audrey Roffe", team: "Jurassic Chickens", mark: "", place: "1st" },
+          { athlete: "Orianna Gruber", team: "Robert", mark: "", place: "2nd" },
+          { athlete: "Hazel Hill", team: "Jurassic Chickens", mark: "", place: "3rd" },
+          { athlete: "Rowan McGregor", team: "Robert", mark: "", place: "4th" },
+          { athlete: "Cora Clark", team: "Imagine Pope Kiwis III", mark: "", place: "4th" },
+          { athlete: "Reuben Addington", team: "Jurassic Chickens", mark: "", place: "4th" },
+          { athlete: "Hudson Coblentz", team: "Red Dead Cheetahs", mark: "", place: "5th" },
+          { athlete: "Remi Klapperich-Khuu", team: "Robert", mark: "", place: "5th" },
+        ],
+      },
+      {
+        name: "800m Run",
+        results: [
+          { athlete: "Sawyer Schulz", team: "Jurassic Chickens", mark: "2:40", place: "1st" },
+          { athlete: "Isaac Jasper", team: "Robert", mark: "2:46", place: "2nd" },
+          { athlete: "Ben Surla", team: "Robert", mark: "2:52", place: "1st" },
+          { athlete: "Duyen Nguyen", team: "Imagine Pope Kiwis III", mark: "", place: "1st" },
+          { athlete: "Keva Bowron", team: "Imagine Pope Kiwis III", mark: "", place: "2nd" },
+          { athlete: "Santiago Guzman-Neva", team: "Imagine Pope Kiwis III", mark: "3:26", place: "5th" },
+          { athlete: "Jasper McGregor", team: "Robert", mark: "3:28", place: "2nd" },
+          { athlete: "Mattias Kunc", team: "Red Dead Cheetahs", mark: "3:30", place: "" },
+          { athlete: "Marcus Kunc", team: "Imagine Pope Kiwis III", mark: "3:42", place: "3rd" },
+          { athlete: "Finley Cox", team: "Jurassic Chickens", mark: "3:46", place: "4th" },
+          { athlete: "Ari Klapperich-Khuu", team: "Imagine Pope Kiwis III", mark: "3:48", place: "5th" },
+          { athlete: "Cora Ebinger", team: "Jurassic Chickens", mark: "", place: "4th" },
+          { athlete: "Evelyn Evans", team: "Robert", mark: "3:59", place: "3rd" },
+          { athlete: "Amelia Roddy", team: "Jurassic Chickens", mark: "", place: "1st" },
+          { athlete: "Cora Clark", team: "Imagine Pope Kiwis III", mark: "", place: "2nd" },
+          { athlete: "Grayson Chon", team: "Red Dead Cheetahs", mark: "4:17", place: "" },
+          { athlete: "Hazel Hill", team: "Jurassic Chickens", mark: "", place: "3rd" },
+          { athlete: "Hazel Courtney", team: "Imagine Pope Kiwis III", mark: "4:24", place: "4th" },
+          { athlete: "Jin Trenh", team: "Imagine Pope Kiwis III", mark: "", place: "4th" },
+          { athlete: "Rowan McGregor", team: "Robert", mark: "", place: "3rd" },
+        ],
+      },
+    ],
+  },
+};
