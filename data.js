@@ -204,9 +204,13 @@ const ROSTER = [
 
 // ---- COACHES ----
 const COACHES = [
-  { name: "Coach Addington", role: "Head Coach", email: "" },
-  { name: "Coach Rivera", role: "Assistant Coach — Sprints", email: "" },
-  { name: "Coach Park", role: "Assistant Coach — Throws", email: "" },
+  // Head Coaches
+  { name: "Drew Addington", role: "Head Coach — Distance 800/1600, Hurdles", email: "drewadding@gmail.com" },
+  { name: "David Lewis", role: "Head Coach — Middle Distance, Jumps", email: "david.lewis@yinghuaacademy.org" },
+  { name: "Lily Ciske", role: "Head Coach — Sprints, Jumps", email: "lilian.ciske@mail.northcentral.edu" },
+  // Assistant Coaches
+  { name: "Angela Bortel", role: "Assistant Coach", email: "" },
+  { name: "Leighton Becher", role: "Assistant Coach — Distance 800/1600", email: "" },
 ];
 
 // ---- MEET RESULTS ----
