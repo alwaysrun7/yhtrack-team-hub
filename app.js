@@ -39,6 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btn.classList.contains("nav-dropdown-toggle")) {
         const dropdown = btn.closest(".nav-dropdown");
         dropdown.classList.toggle("open");
+        // Position the menu below the toggle using fixed positioning
+        const menu = dropdown.querySelector(".nav-dropdown-menu");
+        if (dropdown.classList.contains("open") && menu) {
+          const rect = btn.getBoundingClientRect();
+          menu.style.top = rect.bottom + "px";
+          menu.style.left = rect.left + "px";
+        }
         return;
       }
       const target = btn.dataset.section;

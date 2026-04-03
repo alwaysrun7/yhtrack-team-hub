@@ -698,6 +698,7 @@ body {
   .header h1 span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .nav { overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
   .nav button { padding: 0.7rem 0.8rem; font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
+  .nav-dropdown-menu { position: fixed; transform: none; }
   .content { padding: 1rem; }
   .password-form { flex-direction: column; }
   .password-form input { width: 100%; }
