@@ -33,30 +33,67 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Navigation
-  document.querySelectorAll(".nav button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // If this is the dropdown toggle, toggle the menu on click instead of navigating
-      if (btn.classList.contains("nav-dropdown-toggle")) {
-        const dropdown = btn.closest(".nav-dropdown");
-        dropdown.classList.toggle("open");
-        // Position the menu below the toggle using fixed positioning
-        const menu = dropdown.querySelector(".nav-dropdown-menu");
-        if (dropdown.classList.contains("open") && menu) {
-          const rect = btn.getBoundingClientRect();
-          menu.style.top = rect.bottom + "px";
-          menu.style.left = rect.left + "px";
-        }
-        return;
+  // Results dropdown toggle
+  const dropdownToggle = document.querySelector(".nav-dropdown-toggle");
+  const dropdownWrapper = document.querySelector(".nav-dropdown");
+  const dropdownMenu = document.getElementById("results-dropdown-menu");
+
+  if (dropdownToggle && dropdownMenu) {
+    function positionMenu() {
+      const rect = dropdownToggle.getBoundingClientRect();
+      dropdownMenu.style.position = "fixed";
+      dropdownMenu.style.top = rect.bottom + "px";
+      dropdownMenu.style.left = Math.min(rect.left, window.innerWidth - 140) + "px";
+      dropdownMenu.style.zIndex = "9999";
+    }
+
+    dropdownToggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = dropdownWrapper.classList.toggle("open");
+      if (isOpen) positionMenu();
+    });
+
+    // Also handle touchstart for mobile
+    dropdownToggle.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = dropdownWrapper.classList.toggle("open");
+      if (isOpen) positionMenu();
+    }, { passive: false });
+
+    // Menu item clicks
+    dropdownMenu.querySelectorAll("button").forEach((btn) => {
+      function handleMenuClick(e) {
+        e.stopPropagation();
+        dropdownWrapper.classList.remove("open");
+        switchSection(btn.dataset.section);
       }
+      btn.addEventListener("click", handleMenuClick);
+      btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        handleMenuClick(e);
+      }, { passive: false });
+    });
+  }
+
+  // Other nav buttons
+  document.querySelectorAll(".nav > button").forEach((btn) => {
+    btn.addEventListener("click", () => {
       const target = btn.dataset.section;
       switchSection(target);
     });
   });
 
-  // Close dropdown when clicking outside
+  // Close dropdown when tapping outside
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".nav-dropdown")) {
-      document.querySelectorAll(".nav-dropdown").forEach((d) => d.classList.remove("open"));
+    if (dropdownWrapper && !e.target.closest(".nav-dropdown")) {
+      dropdownWrapper.classList.remove("open");
+    }
+  });
+  document.addEventListener("touchstart", (e) => {
+    if (dropdownWrapper && !e.target.closest(".nav-dropdown")) {
+      dropdownWrapper.classList.remove("open");
     }
   });
 

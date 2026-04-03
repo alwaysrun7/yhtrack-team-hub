@@ -191,23 +191,17 @@ body {
   position: relative;
 }
 
-.nav-dropdown-toggle::after {
-  content: " ▾";
-  font-size: 0.7em;
-}
+/* arrow is in HTML now */
 
 .nav-dropdown-menu {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  z-index: 200;
-  min-width: 100px;
+  z-index: 9999;
+  min-width: 140px;
   overflow: hidden;
 }
 
@@ -698,7 +692,6 @@ body {
   .header h1 span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .nav { overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
   .nav button { padding: 0.7rem 0.8rem; font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
-  .nav-dropdown-menu { position: fixed; transform: none; }
   .content { padding: 1rem; }
   .password-form { flex-direction: column; }
   .password-form input { width: 100%; }
