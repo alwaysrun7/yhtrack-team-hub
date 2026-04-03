@@ -17,7 +17,7 @@ const ANNOUNCEMENTS = [
   {
     date: "2026-04-02",
     title: "Next Practice: Tuesday, April 7",
-    body: "Practice is Tuesday 3:30–5:00 PM at the field behind school. Pickup at 5:00 PM. Workout: 4x300m (50-75% pace), 4x100m relays. Weather forecast: 46°F, Mostly Sunny. Dress in layers!",
+    body: "Practice is Tuesday 3:30–5:00 PM at the field behind school. Pickup at 5:00 PM. Workout: 4x300m (50-75% pace), 4x100m relays.",
   },
   {
     date: "2026-04-02",

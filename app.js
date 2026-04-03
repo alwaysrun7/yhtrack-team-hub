@@ -81,6 +81,10 @@ function renderAnnouncements() {
   let html = `<div class="announcements-hero">
     <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/04/athletic_dragon-removebg-preview.png" alt="Dragons Athletics" class="hero-dragon">
   </div>`;
+
+  // Weather widget for next practice
+  html += renderWeatherWidget();
+
   html += ANNOUNCEMENTS.map((a) => `
     <div class="card">
       <h3>${esc(a.title)}</h3>
@@ -89,19 +93,167 @@ function renderAnnouncements() {
     </div>
   `).join("");
   el.innerHTML = html;
+
+  // Fetch live weather after rendering
+  fetchWeather();
+}
+
+function renderWeatherWidget() {
+  // Find next practice from schedule
+  const now = new Date();
+  const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  let nextPractice = null;
+  const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
+  for (const s of sorted) {
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+    if (s.date >= todayStr && !isOff) {
+      nextPractice = s;
+      break;
+    }
+  }
+  if (!nextPractice) return "";
+
+  const d = new Date(nextPractice.date + "T12:00:00");
+  const dayName = d.toLocaleDateString("en-US", { weekday: "long" });
+  const dateStr = d.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  const isMeet = nextPractice.type === "meet";
+
+  return `
+    <div class="weather-widget" id="weather-widget">
+      <div class="weather-header">
+        <div class="weather-title-row">
+          <span class="weather-label">${isMeet ? "MEET" : "PRACTICE"} DAY FORECAST</span>
+          <span class="weather-date">${dayName}, ${dateStr}</span>
+        </div>
+      </div>
+      <div class="weather-body" id="weather-body">
+        <div class="weather-loading">Loading forecast...</div>
+      </div>
+    </div>
+  `;
+}
+
+function fetchWeather() {
+  const widget = document.getElementById("weather-body");
+  if (!widget) return;
+
+  // Minneapolis coordinates
+  fetch("https://api.weather.gov/points/44.9978,-93.2650")
+    .then((r) => r.json())
+    .then((data) => fetch(data.properties.forecast))
+    .then((r) => r.json())
+    .then((forecast) => {
+      // Find next practice date
+      const now = new Date();
+      const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+      let nextDate = null;
+      const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
+      for (const s of sorted) {
+        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+        if (s.date >= todayStr && !isOff) {
+          nextDate = s.date;
+          break;
+        }
+      }
+      if (!nextDate) return;
+
+      const targetDate = new Date(nextDate + "T12:00:00");
+      const targetDay = targetDate.toLocaleDateString("en-US", { weekday: "long" });
+
+      // Find matching forecast period (daytime)
+      const periods = forecast.properties.periods;
+      let match = null;
+      for (const p of periods) {
+        if (p.name.includes(targetDay) && p.isDaytime) {
+          match = p;
+          break;
+        }
+      }
+
+      // Fallback: if target day is today, use "This Afternoon" or "Today"
+      if (!match) {
+        for (const p of periods) {
+          if ((p.name === "This Afternoon" || p.name === "Today") && p.isDaytime) {
+            const pDate = new Date(p.startTime);
+            if (pDate.toDateString() === targetDate.toDateString()) {
+              match = p;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!match) {
+        widget.innerHTML = `<div class="weather-unavailable">Forecast not yet available for this date</div>`;
+        return;
+      }
+
+      const temp = match.temperature;
+      const unit = match.temperatureUnit;
+      const condition = match.shortForecast;
+      const wind = match.windSpeed + " " + match.windDirection;
+      const precip = match.probabilityOfPrecipitation?.value || 0;
+      const icon = getWeatherEmoji(condition);
+
+      widget.innerHTML = `
+        <div class="weather-main">
+          <div class="weather-icon">${icon}</div>
+          <div class="weather-temp">${temp}°${unit}</div>
+          <div class="weather-condition">${esc(condition)}</div>
+        </div>
+        <div class="weather-details">
+          <div class="weather-detail"><span class="weather-detail-icon">💨</span><span>Wind: ${esc(wind)}</span></div>
+          <div class="weather-detail"><span class="weather-detail-icon">💧</span><span>Rain: ${precip}%</span></div>
+          <div class="weather-detail"><span class="weather-detail-icon">👟</span><span>${temp < 45 ? "Dress warm! Layers recommended." : temp < 60 ? "Light layers recommended." : "Great running weather!"}</span></div>
+        </div>
+      `;
+    })
+    .catch(() => {
+      widget.innerHTML = `<div class="weather-unavailable">Unable to load forecast</div>`;
+    });
+}
+
+function getWeatherEmoji(condition) {
+  const c = condition.toLowerCase();
+  if (c.includes("snow")) return "🌨️";
+  if (c.includes("rain") && c.includes("snow")) return "🌨️";
+  if (c.includes("thunderstorm")) return "⛈️";
+  if (c.includes("rain") || c.includes("showers")) return "🌧️";
+  if (c.includes("cloudy") && c.includes("partly")) return "⛅";
+  if (c.includes("cloudy") || c.includes("overcast")) return "☁️";
+  if (c.includes("sunny") || c.includes("clear")) return "☀️";
+  if (c.includes("mostly sunny")) return "🌤️";
+  if (c.includes("fog")) return "🌫️";
+  if (c.includes("wind")) return "💨";
+  return "🌤️";
 }
 
 function renderSchedule() {
   const el = document.getElementById("schedule-list");
   const sorted = [...SCHEDULE].sort((a, b) => new Date(a.date) - new Date(b.date));
-  el.innerHTML = sorted.map((s) => {
+
+  // Find the next upcoming practice or meet (today or future, skip "No School" days)
+  const now = new Date();
+  const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  let nextIdx = -1;
+  for (let i = 0; i < sorted.length; i++) {
+    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice");
+    if (sorted[i].date >= todayStr && !isOff) {
+      nextIdx = i;
+      break;
+    }
+  }
+
+  el.innerHTML = sorted.map((s, i) => {
     const d = new Date(s.date + "T00:00:00");
     const month = d.toLocaleString("default", { month: "short" });
     const day = d.getDate();
     const isMeet = s.type === "meet";
     const hasPlan = s.plan && Object.keys(s.plan).length > 0;
+    const isNext = i === nextIdx;
     return `
-      <div class="card schedule-item ${hasPlan ? "has-plan" : ""}" ${hasPlan ? 'onclick="this.classList.toggle(\'expanded\')"' : ""}>
+      <div class="card schedule-item ${hasPlan ? "has-plan" : ""} ${isNext ? "next-up" : ""}" id="${isNext ? "next-event" : ""}" ${hasPlan ? 'onclick="this.classList.toggle(\'expanded\')"' : ""}>
+        ${isNext ? '<div class="next-up-badge">UP NEXT</div>' : ""}
         <div class="schedule-date">
           <div class="month">${month}</div>
           <div class="day">${day}</div>
@@ -122,6 +274,12 @@ function renderSchedule() {
       </div>
     `;
   }).join("");
+
+  // Auto-scroll to next event when schedule tab is shown
+  const nextEl = document.getElementById("next-event");
+  if (nextEl) {
+    setTimeout(() => nextEl.scrollIntoView({ behavior: "smooth", block: "center" }), 300);
+  }
 }
 
 function renderRoster() {
