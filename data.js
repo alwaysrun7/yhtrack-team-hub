@@ -15,14 +15,14 @@ const TEAM_COLORS = {
 // ---- ANNOUNCEMENTS ----
 const ANNOUNCEMENTS = [
   {
-    date: "2026-03-14",
-    title: "Welcome to the 2026 Season!",
-    body: "We're excited to kick off another great year. First practice is Monday, March 16. Bring running shoes, water, and a great attitude!",
+    date: "2026-04-02",
+    title: "Next Practice: Tuesday, April 7",
+    body: "Practice is Tuesday 3:30–5:00 PM at the field behind school. Pickup at 5:00 PM. Workout: 4x300m (50-75% pace), 4x100m relays. Weather forecast: 46°F, Mostly Sunny. Dress in layers!",
   },
   {
-    date: "2026-03-10",
-    title: "Uniform Pickup",
-    body: "Uniforms will be available for pickup in the gym lobby on Friday, March 13 from 3:00–5:00 PM.",
+    date: "2026-04-02",
+    title: "Welcome to the 2026 Season!",
+    body: "We're excited to kick off another great year of Dragons Track & Field. Bring running shoes, water, and a great attitude to every practice!",
   },
 ];
 
