@@ -35,9 +35,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // Navigation
   document.querySelectorAll(".nav button").forEach((btn) => {
     btn.addEventListener("click", () => {
+      // If this is the dropdown toggle, toggle the menu on click instead of navigating
+      if (btn.classList.contains("nav-dropdown-toggle")) {
+        const dropdown = btn.closest(".nav-dropdown");
+        dropdown.classList.toggle("open");
+        return;
+      }
       const target = btn.dataset.section;
       switchSection(target);
     });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav-dropdown")) {
+      document.querySelectorAll(".nav-dropdown").forEach((d) => d.classList.remove("open"));
+    }
   });
 
   // Render all sections
@@ -71,7 +84,19 @@ function switchSection(name) {
   document.querySelectorAll(".section").forEach((s) => s.classList.remove("active"));
   document.querySelectorAll(".nav button").forEach((b) => b.classList.remove("active"));
   document.getElementById("section-" + name).classList.add("active");
-  document.querySelector(`.nav button[data-section="${name}"]`).classList.add("active");
+
+  // Highlight the correct nav button; for results sections, highlight the dropdown toggle
+  const isResults = (name === "results" || name === "results2025");
+  if (isResults) {
+    const toggle = document.querySelector(".nav-dropdown-toggle");
+    if (toggle) toggle.classList.add("active");
+  } else {
+    const btn = document.querySelector(`.nav > button[data-section="${name}"]`);
+    if (btn) btn.classList.add("active");
+  }
+
+  // Close any open dropdown
+  document.querySelectorAll(".nav-dropdown").forEach((d) => d.classList.remove("open"));
 }
 
 // ---- RENDER FUNCTIONS ----
@@ -420,7 +445,7 @@ function renderResults2025() {
     evt.results.forEach((r) => {
       if (!r.mark) return;
       if (!athleteMap[r.athlete]) athleteMap[r.athlete] = [];
-      athleteMap[r.athlete].push({ mark: r.mark, meet: "Season Meets" });
+      athleteMap[r.athlete].push({ mark: r.mark, meet: r.meet || "Season Meets" });
     });
     inHouseResults.forEach((r) => {
       if (!r.mark) return;
@@ -496,6 +521,7 @@ function renderResults2025() {
 
 function renderRecords() {
   const el = document.getElementById("records-content");
+  if (!el) return;
   if (RECORDS.length === 0) {
     el.innerHTML = '<div class="card"><p>No team records yet. Records will be added as the season progresses!</p></div>';
     return;
