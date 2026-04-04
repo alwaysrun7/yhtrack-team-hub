@@ -9,7 +9,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260402T153000
 DTEND;TZID=America/Chicago:20260402T170000
 SUMMARY:Track Practice — Week 1
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260402@yinghuaacademy.org
@@ -18,7 +19,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260407T153000
 DTEND;TZID=America/Chicago:20260407T170000
 SUMMARY:Track Practice — Week 1
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260407@yinghuaacademy.org
@@ -35,7 +37,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260414T153000
 DTEND;TZID=America/Chicago:20260414T170000
 SUMMARY:Track Practice — Week 2
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260414@yinghuaacademy.org
@@ -44,7 +47,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260416T153000
 DTEND;TZID=America/Chicago:20260416T170000
 SUMMARY:Track Pre-Meet Practice — Week 2
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260416@yinghuaacademy.org
@@ -61,7 +65,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260421T153000
 DTEND;TZID=America/Chicago:20260421T170000
 SUMMARY:Track Pre-Meet Practice — Week 3
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260421@yinghuaacademy.org
@@ -79,7 +84,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260423T153000
 DTEND;TZID=America/Chicago:20260423T170000
 SUMMARY:Track Practice — Week 3
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260423@yinghuaacademy.org
@@ -88,7 +94,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260428T153000
 DTEND;TZID=America/Chicago:20260428T170000
 SUMMARY:Track Practice — Week 4
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260428@yinghuaacademy.org
@@ -97,7 +104,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260430T153000
 DTEND;TZID=America/Chicago:20260430T170000
 SUMMARY:Track Practice — Week 4
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260430@yinghuaacademy.org
@@ -106,7 +114,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260505T153000
 DTEND;TZID=America/Chicago:20260505T170000
 SUMMARY:Track Pre-Meet Practice — Week 5
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260505@yinghuaacademy.org
@@ -124,7 +133,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260507T153000
 DTEND;TZID=America/Chicago:20260507T170000
 SUMMARY:Track Practice — Week 5
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260507@yinghuaacademy.org
@@ -133,7 +143,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260512T153000
 DTEND;TZID=America/Chicago:20260512T170000
 SUMMARY:Track Pre-Meet Practice — Week 6
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260512@yinghuaacademy.org
@@ -151,7 +162,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260514T153000
 DTEND;TZID=America/Chicago:20260514T170000
 SUMMARY:Track Pre-Meet Practice — Week 6
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260514@yinghuaacademy.org
@@ -168,7 +180,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260519T153000
 DTEND;TZID=America/Chicago:20260519T170000
 SUMMARY:Track Pre-Meet Practice — Week 7
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM
 STATUS:CONFIRMED
 UID:ya-track-20260519@yinghuaacademy.org
@@ -177,7 +190,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260521T153000
 DTEND;TZID=America/Chicago:20260521T180000
 SUMMARY:Last Practice & Party 🎉
-LOCATION:Field behind school
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 6:00 PM · End-of-season celebration!
 STATUS:CONFIRMED
 UID:ya-track-20260521@yinghuaacademy.org
@@ -186,7 +200,8 @@ BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260522T154500
 DTEND;TZID=America/Chicago:20260522T180000
 SUMMARY:🏃 Yinghua In-House Meet & End of Season Party
-LOCATION:Yinghua / NE Park
+LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
+GEO:45.003867;-93.240431
 DESCRIPTION:Grades 5-8 · Dismiss 3:30
 STATUS:CONFIRMED
 UID:ya-track-20260522@yinghuaacademy.org
