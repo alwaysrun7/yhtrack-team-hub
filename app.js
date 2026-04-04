@@ -33,68 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Navigation
-  // Results dropdown toggle
-  const dropdownToggle = document.querySelector(".nav-dropdown-toggle");
-  const dropdownWrapper = document.querySelector(".nav-dropdown");
-  const dropdownMenu = document.getElementById("results-dropdown-menu");
-
-  if (dropdownToggle && dropdownMenu) {
-    function positionMenu() {
-      const rect = dropdownToggle.getBoundingClientRect();
-      dropdownMenu.style.position = "fixed";
-      dropdownMenu.style.top = rect.bottom + "px";
-      dropdownMenu.style.left = Math.min(rect.left, window.innerWidth - 140) + "px";
-      dropdownMenu.style.zIndex = "9999";
-    }
-
-    dropdownToggle.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = dropdownWrapper.classList.toggle("open");
-      if (isOpen) positionMenu();
-    });
-
-    // Also handle touchstart for mobile
-    dropdownToggle.addEventListener("touchstart", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = dropdownWrapper.classList.toggle("open");
-      if (isOpen) positionMenu();
-    }, { passive: false });
-
-    // Menu item clicks
-    dropdownMenu.querySelectorAll("button").forEach((btn) => {
-      function handleMenuClick(e) {
-        e.stopPropagation();
-        dropdownWrapper.classList.remove("open");
-        switchSection(btn.dataset.section);
-      }
-      btn.addEventListener("click", handleMenuClick);
-      btn.addEventListener("touchstart", (e) => {
-        e.preventDefault();
-        handleMenuClick(e);
-      }, { passive: false });
-    });
-  }
-
-  // Other nav buttons
-  document.querySelectorAll(".nav > button").forEach((btn) => {
+  document.querySelectorAll(".nav button").forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = btn.dataset.section;
       switchSection(target);
     });
-  });
-
-  // Close dropdown when tapping outside
-  document.addEventListener("click", (e) => {
-    if (dropdownWrapper && !e.target.closest(".nav-dropdown")) {
-      dropdownWrapper.classList.remove("open");
-    }
-  });
-  document.addEventListener("touchstart", (e) => {
-    if (dropdownWrapper && !e.target.closest(".nav-dropdown")) {
-      dropdownWrapper.classList.remove("open");
-    }
   });
 
   // Render all sections
@@ -128,19 +71,7 @@ function switchSection(name) {
   document.querySelectorAll(".section").forEach((s) => s.classList.remove("active"));
   document.querySelectorAll(".nav button").forEach((b) => b.classList.remove("active"));
   document.getElementById("section-" + name).classList.add("active");
-
-  // Highlight the correct nav button; for results sections, highlight the dropdown toggle
-  const isResults = (name === "results" || name === "results2025");
-  if (isResults) {
-    const toggle = document.querySelector(".nav-dropdown-toggle");
-    if (toggle) toggle.classList.add("active");
-  } else {
-    const btn = document.querySelector(`.nav > button[data-section="${name}"]`);
-    if (btn) btn.classList.add("active");
-  }
-
-  // Close any open dropdown
-  document.querySelectorAll(".nav-dropdown").forEach((d) => d.classList.remove("open"));
+  document.querySelector(`.nav button[data-section="${name}"]`).classList.add("active");
 }
 
 // ---- RENDER FUNCTIONS ----
