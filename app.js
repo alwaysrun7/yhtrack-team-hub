@@ -292,7 +292,6 @@ function renderSchedule() {
               <div class="plan-group"><span class="plan-label">Sprints</span><span class="plan-text">${esc(s.plan.sprints)}</span></div>
               <div class="plan-group"><span class="plan-label">Distance</span><span class="plan-text">${esc(s.plan.distance)}</span></div>
               <div class="plan-group"><span class="plan-label">Field / Hurdles</span><span class="plan-text">${esc(s.plan.field)}</span></div>
-              <div class="plan-group"><span class="plan-label">Full Team</span><span class="plan-text">${esc(s.plan.team)}</span></div>
             </div>
           ` : ""}
         </div>
