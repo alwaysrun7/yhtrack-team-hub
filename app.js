@@ -395,8 +395,26 @@ function renderRoster() {
     byGrade[r.grade].push(r);
   });
 
+  // Coaches section (top of page)
+  let html = `<h2 class="section-title">Coaching Staff</h2>`;
+  html += `<div class="coaches-grid">`;
+  COACHES.forEach((c) => {
+    const initials = c.name.replace("Coach ", "").charAt(0);
+    html += `
+      <div class="card coach-card">
+        <div class="coach-avatar">${esc(initials)}</div>
+        <h3>${esc(c.name)}</h3>
+        <div class="role">${esc(c.role)}</div>
+        ${c.email ? `<div class="email">${esc(c.email)}</div>` : ""}
+      </div>
+    `;
+  });
+  html += "</div>";
+
+  // Roster table
   const grades = Object.keys(byGrade).sort((a, b) => b - a);
-  let html = `
+  html += `<h2 class="section-title" style="margin-top:2rem;">Athletes</h2>`;
+  html += `
     <table class="roster-table">
       <thead>
         <tr><th>Name</th><th>Grade</th><th>Events</th></tr>
@@ -416,22 +434,6 @@ function renderRoster() {
     });
   });
   html += "</tbody></table>";
-
-  // Coaches section
-  html += `<h2 class="section-title" style="margin-top:2rem;">Coaching Staff</h2>`;
-  html += `<div class="coaches-grid">`;
-  COACHES.forEach((c) => {
-    const initials = c.name.replace("Coach ", "").charAt(0);
-    html += `
-      <div class="card coach-card">
-        <div class="coach-avatar">${esc(initials)}</div>
-        <h3>${esc(c.name)}</h3>
-        <div class="role">${esc(c.role)}</div>
-        ${c.email ? `<div class="email">${esc(c.email)}</div>` : ""}
-      </div>
-    `;
-  });
-  html += "</div>";
 
   el.innerHTML = html;
 }
