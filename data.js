@@ -119,13 +119,7 @@ const SCHEDULE = [
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
       field: "Practice hurdles, long jump, and relay handoffs.",
     }},
-  { date: "2026-05-21", type: "practice", title: "Last Practice & Party", time: "3:30–6:00 PM", location: "Field behind school", notes: "Pickup at 6:00 PM",
-    plan: {
-      sprints: "Fun relays and games.",
-      distance: "Fun relays and games.",
-      field: "Fun relays and games.",
-    }},
-  { date: "2026-05-22", type: "meet", title: "Yinghua In-House Meet & End of Season Party", time: "3:45 PM", location: "Yinghua / NE Park", notes: "Grades 5-8 · Dismiss 3:30" },
+  { date: "2026-05-21", type: "meet", title: "Yinghua In-House Meet & End of Season Party", time: "3:45 PM", location: "Yinghua / NE Park", notes: "Grades 5-8 · Dismiss 3:30" },
 ];
 
 // ---- ROSTER ----

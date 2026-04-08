@@ -187,23 +187,13 @@ STATUS:CONFIRMED
 UID:ya-track-20260519@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;TZID=America/Chicago:20260521T153000
+DTSTART;TZID=America/Chicago:20260521T154500
 DTEND;TZID=America/Chicago:20260521T180000
-SUMMARY:Yinghua Track Practice — Last Practice & Party 🎉
-LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
-GEO:45.003867;-93.240431
-DESCRIPTION:Pickup at 6:00 PM · End-of-season celebration!
-STATUS:CONFIRMED
-UID:ya-track-20260521@yinghuaacademy.org
-END:VEVENT
-BEGIN:VEVENT
-DTSTART;TZID=America/Chicago:20260522T154500
-DTEND;TZID=America/Chicago:20260522T180000
-SUMMARY:🏃 Yinghua In-House Meet & End of Season Party
+SUMMARY:🏃 Yinghua In-House Meet & End of Season Party 🎉
 LOCATION:Yinghua Academy Field — https://maps.app.goo.gl/Jn2kYssoQJToAYuB7
 GEO:45.003867;-93.240431
 DESCRIPTION:Grades 5-8 · Dismiss 3:30
 STATUS:CONFIRMED
-UID:ya-track-20260522@yinghuaacademy.org
+UID:ya-track-20260521@yinghuaacademy.org
 END:VEVENT
 END:VCALENDAR
