@@ -100,8 +100,15 @@ function renderAnnouncements() {
 
 function renderWeatherWidget() {
   // Find next practice from schedule
+  // Use 5 PM Central as the cutoff to roll to the next event
   const now = new Date();
-  const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const cutoffHour = 17; // 5 PM
+  let refDate = new Date(central);
+  if (central.getHours() >= cutoffHour) {
+    refDate.setDate(refDate.getDate() + 1);
+  }
+  const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
   let nextPractice = null;
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   for (const s of sorted) {
@@ -143,9 +150,15 @@ function fetchWeather() {
     .then((data) => fetch(data.properties.forecast))
     .then((r) => r.json())
     .then((forecast) => {
-      // Find next practice date
+      // Find next practice date (rolls over after 5 PM Central)
       const now = new Date();
-      const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+      const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+      const cutoffHour = 17;
+      let refDate = new Date(central);
+      if (central.getHours() >= cutoffHour) {
+        refDate.setDate(refDate.getDate() + 1);
+      }
+      const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
       let nextDate = null;
       const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
       for (const s of sorted) {
@@ -232,9 +245,15 @@ function renderSchedule() {
   const el = document.getElementById("schedule-list");
   const sorted = [...SCHEDULE].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Find the next upcoming practice or meet (today or future, skip "No School" days)
+  // Find the next upcoming practice or meet (rolls over after 5 PM Central)
   const now = new Date();
-  const todayStr = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const cutoffHour = 17;
+  let refDate = new Date(central);
+  if (central.getHours() >= cutoffHour) {
+    refDate.setDate(refDate.getDate() + 1);
+  }
+  const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
   let nextIdx = -1;
   for (let i = 0; i < sorted.length; i++) {
     const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice");
