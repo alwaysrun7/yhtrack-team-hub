@@ -192,6 +192,13 @@ const COACHES = [
   // Assistant Coaches
   { name: "Angela Bortel", role: "Assistant Coach", email: "" },
   { name: "Leighton Becher", role: "Assistant Coach — Distance 800/1600", email: "" },
+  // Team Manager
+  { name: "Thein Sam", role: "Team Manager", email: "tnsam1@gmail.com" },
+  // Parent Volunteers
+  { name: "Anna Lindquist", role: "Parent Volunteer — Hurdles", email: "jasonandanna@gmail.com" },
+  { name: "Charles Nowariak", role: "Parent Volunteer", email: "cdnowariak@icloud.com" },
+  { name: "Kristin Petersen", role: "Parent Volunteer — Shot Put & Discus", email: "kristincpetersen@hotmail.com" },
+  { name: "Anaya Mitra", role: "Parent Volunteer — Thursdays", email: "landahl.mitra@gmail.com" },
 ];
 
 // ---- MEET RESULTS ----

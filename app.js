@@ -395,21 +395,40 @@ function renderRoster() {
     byGrade[r.grade].push(r);
   });
 
-  // Coaches section (top of page)
+  // Group staff by role type
+  const coaches = COACHES.filter((c) => c.role.toLowerCase().includes("coach"));
+  const manager = COACHES.filter((c) => c.role.toLowerCase().includes("manager"));
+  const volunteers = COACHES.filter((c) => c.role.toLowerCase().includes("volunteer"));
+
+  function renderStaffGrid(people) {
+    let out = `<div class="coaches-grid">`;
+    people.forEach((c) => {
+      const initials = c.name.charAt(0);
+      out += `
+        <div class="card coach-card">
+          <div class="coach-avatar">${esc(initials)}</div>
+          <h3>${esc(c.name)}</h3>
+          <div class="role">${esc(c.role)}</div>
+          ${c.email ? `<div class="email">${esc(c.email)}</div>` : ""}
+        </div>
+      `;
+    });
+    out += "</div>";
+    return out;
+  }
+
   let html = `<h2 class="section-title">Coaching Staff</h2>`;
-  html += `<div class="coaches-grid">`;
-  COACHES.forEach((c) => {
-    const initials = c.name.replace("Coach ", "").charAt(0);
-    html += `
-      <div class="card coach-card">
-        <div class="coach-avatar">${esc(initials)}</div>
-        <h3>${esc(c.name)}</h3>
-        <div class="role">${esc(c.role)}</div>
-        ${c.email ? `<div class="email">${esc(c.email)}</div>` : ""}
-      </div>
-    `;
-  });
-  html += "</div>";
+  html += renderStaffGrid(coaches);
+
+  if (manager.length) {
+    html += `<h2 class="section-title" style="margin-top:2rem;">Team Manager</h2>`;
+    html += renderStaffGrid(manager);
+  }
+
+  if (volunteers.length) {
+    html += `<h2 class="section-title" style="margin-top:2rem;">Parent Volunteers</h2>`;
+    html += renderStaffGrid(volunteers);
+  }
 
   // Roster table
   const grades = Object.keys(byGrade).sort((a, b) => b - a);
