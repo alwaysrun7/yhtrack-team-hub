@@ -85,6 +85,9 @@ function renderAnnouncements() {
   // Weather widget for next practice
   html += renderWeatherWidget();
 
+  // Auto-generated "Up Next" card from schedule
+  html += renderNextEventCard();
+
   html += ANNOUNCEMENTS.map((a) => `
     <div class="card">
       <h3>${esc(a.title)}</h3>
@@ -96,6 +99,63 @@ function renderAnnouncements() {
 
   // Fetch live weather after rendering
   fetchWeather();
+}
+
+function renderNextEventCard() {
+  // Find next event using same 5 PM Central cutoff
+  const now = new Date();
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const cutoffHour = 17;
+  let refDate = new Date(central);
+  if (central.getHours() >= cutoffHour) {
+    refDate.setDate(refDate.getDate() + 1);
+  }
+  const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
+
+  const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
+  let next = null;
+  for (const s of sorted) {
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+    if (s.date >= todayStr && !isOff) {
+      next = s;
+      break;
+    }
+  }
+  if (!next) return "";
+
+  const d = new Date(next.date + "T12:00:00");
+  const dayName = d.toLocaleDateString("en-US", { weekday: "long" });
+  const dateStr = d.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  const isMeet = next.type === "meet";
+
+  let details = "";
+  if (isMeet) {
+    details = `<strong>${esc(next.title)}</strong> — ${esc(next.time)} at ${esc(next.location)}.`;
+    if (next.notes) details += ` ${esc(next.notes)}`;
+  } else {
+    details = `${esc(next.time)} at ${esc(next.location)}.`;
+    if (next.notes) details += ` ${esc(next.notes)}`;
+    if (next.plan) {
+      const planParts = [];
+      if (next.plan.sprints) planParts.push(`<strong>Sprints:</strong> ${esc(next.plan.sprints)}`);
+      if (next.plan.distance) planParts.push(`<strong>Distance:</strong> ${esc(next.plan.distance)}`);
+      if (next.plan.field) planParts.push(`<strong>Field/Hurdles:</strong> ${esc(next.plan.field)}`);
+      if (planParts.length) {
+        details += `<div class="next-event-plan">${planParts.join("<br>")}</div>`;
+      }
+    }
+  }
+
+  return `
+    <div class="card next-event-card">
+      <div class="next-event-header">
+        <span class="badge ${isMeet ? "badge-meet" : "badge-practice"}">${isMeet ? "Meet" : "Practice"}</span>
+        <span class="next-event-label">UP NEXT</span>
+      </div>
+      <h3>${isMeet ? "Meet Day" : "Next Practice"}: ${dayName}, ${dateStr}</h3>
+      <p>${details}</p>
+    </div>
+  `;
 }
 
 function renderWeatherWidget() {

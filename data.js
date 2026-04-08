@@ -16,11 +16,6 @@ const TEAM_COLORS = {
 const ANNOUNCEMENTS = [
   {
     date: "2026-04-02",
-    title: "Next Practice: Tuesday, April 7",
-    body: "Practice is Tuesday 3:30–5:00 PM at the field behind school. Pickup at 5:00 PM. Workout: 4x300m (50-75% pace), 4x100m relays.",
-  },
-  {
-    date: "2026-04-02",
     title: "Welcome to the 2026 Season!",
     body: "We're excited to kick off another great year of Dragons Track & Field. Bring running shoes, water, and a great attitude to every practice!",
   },
@@ -42,7 +37,7 @@ const SCHEDULE = [
     plan: {
       sprints: "Sprint drills. 4x200m (50-75% pace).",
       distance: "3 min on/steady to 2 min conversational for 20-25 min.",
-      field: "Introduce hurdles, discus, and shot put.",
+      field: "Introduce hurdles and long jump.",
     }},
   // ---- NO SCHOOL ----
   { date: "2026-04-09", type: "practice", title: "No School — NO Practice", time: "", location: "Train at home", notes: "" },
@@ -51,13 +46,13 @@ const SCHEDULE = [
     plan: {
       sprints: "4x300m (50-75% pace).",
       distance: "4x300m (50-75% pace).",
-      field: "No field events or hurdles Week 1.",
+      field: "Practice hurdles and long jump.",
     }},
   { date: "2026-04-16", type: "practice", title: "Pre-Meet Practice — Week 2", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
-      field: "Light hurdle walk-throughs. Review shot put & discus form.",
+      field: "Shot put and discus with throws coach.",
     }},
   // ---- MEET ----
   { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "TBD", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104" },
@@ -66,55 +61,55 @@ const SCHEDULE = [
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
-      field: "Light hurdle walk-throughs. Review discus & shot put form.",
+      field: "Light hurdle walk-throughs and long jump practice.",
     }},
   { date: "2026-04-22", type: "meet", title: "Richfield MS", time: "4:30 PM", location: "Richfield HS — 7001 Harriet Ave, Richfield, MN 55423", notes: "Grades 6-8 · Dismiss 3:15 · Bus 3:30" },
   { date: "2026-04-23", type: "practice", title: "Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Sprint drills, shuttle relays.",
       distance: "Hills: 10-15x sprint up / recover down. 2x400m (75%).",
-      field: "Practice hurdles, discus, shot put.",
+      field: "Shot put and discus with throws coach.",
     }},
   // ---- WEEK 4 ----
   { date: "2026-04-28", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "4x100m relay repeats. Sprint form drills.",
       distance: "Fartlek with pace groups (15 min conversational). 5 min handoff practice.",
-      field: "Practice hurdles, discus, shot put, long jump.",
+      field: "Practice hurdles and long jump.",
     }},
   { date: "2026-04-30", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "400m relay teams (2-3 people; 4x400m each).",
       distance: "400m relay teams (2-3 people; 4x400m each).",
-      field: "Practice hurdles, discus, shot put.",
+      field: "Shot put and discus with throws coach.",
     }},
   // ---- WEEK 5 ----
   { date: "2026-05-05", type: "practice", title: "Pre-Meet Practice — Week 5", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m.",
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
-      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      field: "Practice hurdles, long jump, and relay handoffs.",
     }},
   { date: "2026-05-06", type: "meet", title: "Olson MS–Bloomington", time: "4:15 PM", location: "Jefferson HS — 4001 W 102nd St, Bloomington, MN 55437", notes: "Grades 6-8 · Dismiss 3:05 · Bus 3:15" },
   { date: "2026-05-07", type: "practice", title: "Practice — Week 5", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Sprint drills, shuttle relays.",
       distance: "Fartlek with pace groups (15 min conversational).",
-      field: "Practice hurdles, discus, shot put.",
+      field: "Shot put and discus with throws coach.",
     }},
   // ---- WEEK 6 ----
   { date: "2026-05-12", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m.",
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
-      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      field: "Practice hurdles, long jump, and relay handoffs.",
     }},
   { date: "2026-05-13", type: "meet", title: "Prior Lake", time: "4:00 PM", location: "Prior Lake HS — 7575 150th St W, Savage, MN 55378", notes: "Grades 6-8 · Dismiss 2:50 · Bus 3:00" },
   { date: "2026-05-14", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
-      field: "Light hurdle walk-throughs. Review discus & shot put form.",
+      field: "Shot put and discus with throws coach.",
     }},
   { date: "2026-05-15", type: "meet", title: "TCGIS", time: "TBD", location: "Concordia Academy — 2400 Dale St N, Roseville, MN 55113", notes: "Grades 5-8" },
   // ---- WEEK 7 ----
@@ -122,7 +117,7 @@ const SCHEDULE = [
     plan: {
       sprints: "Pre-meet: warm-up + 2x300m, 2x100m.",
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
-      field: "Practice relay handoffs, discus, shot put, hurdles.",
+      field: "Practice hurdles, long jump, and relay handoffs.",
     }},
   { date: "2026-05-21", type: "practice", title: "Last Practice & Party", time: "3:30–6:00 PM", location: "Field behind school", notes: "Pickup at 6:00 PM",
     plan: {

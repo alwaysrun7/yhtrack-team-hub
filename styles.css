@@ -636,6 +636,38 @@ body {
   font-style: italic;
 }
 
+/* Next Event Card */
+.next-event-card {
+  border-left: 4px solid var(--accent);
+}
+
+.next-event-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.next-event-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+}
+
+.next-event-card h3 {
+  margin-bottom: 0.4rem;
+  color: var(--primary);
+}
+
+.next-event-plan {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
 /* Calendar Subscribe */
 .calendar-subscribe {
   background: var(--card);
