@@ -61,14 +61,14 @@ const SCHEDULE = [
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
-      field: "Light hurdle walk-throughs and long jump practice.",
+      field: "Shot put and discus with throws coach.",
     }},
   { date: "2026-04-22", type: "meet", title: "Richfield MS", time: "4:30 PM", location: "Richfield HS — 7001 Harriet Ave, Richfield, MN 55423", notes: "Grades 6-8 · Dismiss 3:15 · Bus 3:30" },
   { date: "2026-04-23", type: "practice", title: "Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Sprint drills, shuttle relays.",
       distance: "Hills: 10-15x sprint up / recover down. 2x400m (75%).",
-      field: "Shot put and discus with throws coach.",
+      field: "Practice hurdles and long jump.",
     }},
   // ---- WEEK 4 ----
   { date: "2026-04-28", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
