@@ -122,6 +122,69 @@ const SCHEDULE = [
   { date: "2026-05-21", type: "meet", title: "Yinghua In-House Meet & End of Season Party", time: "3:45 PM", location: "Yinghua / NE Park", notes: "Grades 5-8 · Dismiss 3:30" },
 ];
 
+// ---- MEET INFO ----
+// Detailed info for upcoming meets. Keyed by schedule date (YYYY-MM-DD).
+// The "This Meet" tab auto-shows the next upcoming meet entry found here.
+// signupFormUrl: paste a Google Form URL here to let athletes sign up for events.
+// To embed the form directly in the page, use the embeddable share URL (ends in /viewform?embedded=true).
+const MEET_INFO = {
+  "2026-04-18": {
+    title: "St. Paul Central H.S.",
+    date: "2026-04-18",
+    dayLabel: "Saturday, April 18",
+    location: "St. Paul Central HS",
+    address: "275 Lexington Pkwy N, St Paul, MN 55104",
+    mapUrl: "https://maps.google.com/?q=275+Lexington+Pkwy+N+St+Paul+MN+55104",
+    arrival: "Athletes should arrive by 12:30 PM for check-in and warm-up.",
+    transportation: "Parents provide transportation to and from the meet.",
+    whatToBring: [
+      "Yinghua track uniform / team shirt",
+      "Running shoes + water bottle",
+      "Snacks and lunch (it's a long meet!)",
+      "Warm layers — weather can change fast in April",
+      "Sunscreen",
+    ],
+    announcements: [
+      {
+        title: "Sign up for your events!",
+        body: "Please use the sign-up form below to let coaches know which events you want to run. Sign up by Thursday 4/16 at practice so we can build heat sheets.",
+      },
+      {
+        title: "Parent pickup",
+        body: "There is no team bus for this meet. Parents are responsible for getting athletes to and from St. Paul Central.",
+      },
+    ],
+    // Paste your Google Form URL here once you create it. Use the /viewform URL for a link,
+    // or replace with the "embed" URL from Google Forms > Send > <> to iframe it into the page.
+    signupFormUrl: "",
+    signupFormEmbedUrl: "",
+    schedule: [
+      { time: "1:00 PM", event: "Opening Field Events Begin", detail: "Girls shot put · Boys discus · Girls high jump · Boys/Girls long jump (rolling)", type: "field" },
+      { time: "", event: "Field Event Check-in", detail: "Check-in, warm-up, practice throws & jumps end at 1:15 PM (or at event official's discretion based on entries).", type: "note" },
+      { time: "1:30 PM", event: "Girls 100m Hurdles", type: "track" },
+      { time: "1:40 PM", event: "Boys 100m Hurdles", type: "track" },
+      { time: "1:50 PM", event: "Girls 100m Dash", type: "track" },
+      { time: "2:00 PM", event: "Boys 100m Dash", type: "track" },
+      { time: "2:10 PM", event: "Girls 1600m Run", type: "track" },
+      { time: "2:20 PM", event: "Boys 1600m Run", type: "track" },
+      { time: "2:30 PM", event: "Girls 400m Dash", type: "track" },
+      { time: "2:30 PM", event: "Opening Field Events Conclude", type: "note" },
+      { time: "2:40 PM", event: "Boys 400m Dash", type: "track" },
+      { time: "2:45 PM", event: "Second Field Events Begin", detail: "Boys shot put · Girls discus · Boys high jump · Boys/Girls long jump (rolling)", type: "field" },
+      { time: "2:50 PM", event: "Girls 4x100m Relay", type: "track" },
+      { time: "3:00 PM", event: "Boys 4x100m Relay", type: "track" },
+      { time: "3:10 PM", event: "Girls 800m Run", type: "track" },
+      { time: "3:20 PM", event: "Boys 800m Run", type: "track" },
+      { time: "3:30 PM", event: "Girls 200m Dash", type: "track" },
+      { time: "3:40 PM", event: "Boys 200m Dash", type: "track" },
+      { time: "3:50 PM", event: "Girls 4x400m Relay", type: "track" },
+      { time: "4:00 PM", event: "Boys 4x400m Relay", type: "track" },
+      { time: "4:10 PM", event: "Co-ed 4x100m Relay", detail: "Pass anything BUT a baton!", type: "fun" },
+      { time: "4:20 PM", event: "Coaches / Parents 4x100m Relay", detail: "Come cheer on the grown-ups!", type: "fun" },
+    ],
+  },
+};
+
 // ---- ROSTER ----
 // events: array of event names (add as athletes are assigned)
 const ROSTER = [

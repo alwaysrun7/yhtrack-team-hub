@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render all sections
   renderAnnouncements();
+  renderMeet();
   renderSchedule();
   renderRoster();
   renderResults();
@@ -385,6 +386,153 @@ function renderSchedule() {
   if (nextEl) {
     setTimeout(() => nextEl.scrollIntoView({ behavior: "smooth", block: "center" }), 300);
   }
+}
+
+function renderMeet() {
+  const el = document.getElementById("meet-content");
+  if (!el) return;
+  if (typeof MEET_INFO === "undefined") {
+    el.innerHTML = '<div class="card"><p>No meet info available yet.</p></div>';
+    return;
+  }
+
+  // Find the next upcoming meet based on today's date (Central time)
+  const now = new Date();
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const todayStr = central.getFullYear() + "-" + String(central.getMonth() + 1).padStart(2, "0") + "-" + String(central.getDate()).padStart(2, "0");
+
+  const dates = Object.keys(MEET_INFO).sort();
+  let meetKey = null;
+  for (const d of dates) {
+    if (d >= todayStr) {
+      meetKey = d;
+      break;
+    }
+  }
+  // Fallback: if no upcoming meet, show the most recent one
+  if (!meetKey && dates.length) {
+    meetKey = dates[dates.length - 1];
+  }
+  if (!meetKey) {
+    el.innerHTML = '<div class="card"><p>No upcoming meet info posted yet.</p></div>';
+    return;
+  }
+
+  const meet = MEET_INFO[meetKey];
+
+  // Days-until countdown
+  const meetDate = new Date(meet.date + "T12:00:00");
+  const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
+  const dayMs = 1000 * 60 * 60 * 24;
+  const daysUntil = Math.round((meetDate - centralNoon) / dayMs);
+  let countdownText = "";
+  if (daysUntil > 1) countdownText = `${daysUntil} days away`;
+  else if (daysUntil === 1) countdownText = "Tomorrow!";
+  else if (daysUntil === 0) countdownText = "Today — go Dragons!";
+  else countdownText = "Completed";
+
+  let html = "";
+
+  // Hero card
+  html += `
+    <div class="card meet-hero">
+      <div class="meet-hero-top">
+        <span class="badge badge-meet">Meet Day</span>
+        <span class="meet-countdown">${esc(countdownText)}</span>
+      </div>
+      <h3 class="meet-hero-title">${esc(meet.title)}</h3>
+      <div class="meet-hero-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
+      <div class="meet-hero-location">
+        📍 <a href="${esc(meet.mapUrl || "#")}" target="_blank" rel="noopener">${esc(meet.location)}</a>
+        <div class="meet-hero-address">${esc(meet.address || "")}</div>
+      </div>
+      ${meet.arrival ? `<div class="meet-hero-note"><strong>Arrival:</strong> ${esc(meet.arrival)}</div>` : ""}
+      ${meet.transportation ? `<div class="meet-hero-note"><strong>Transportation:</strong> ${esc(meet.transportation)}</div>` : ""}
+    </div>
+  `;
+
+  // Announcements
+  if (meet.announcements && meet.announcements.length) {
+    html += `<h2 class="section-title" style="margin-top:1.5rem;">Meet Announcements</h2>`;
+    meet.announcements.forEach((a) => {
+      html += `
+        <div class="card meet-announcement">
+          <h3>${esc(a.title)}</h3>
+          <p>${esc(a.body)}</p>
+        </div>
+      `;
+    });
+  }
+
+  // Event sign-up
+  html += `<h2 class="section-title" style="margin-top:1.5rem;">Event Sign-Up</h2>`;
+  if (meet.signupFormEmbedUrl) {
+    html += `
+      <div class="card meet-signup">
+        <p style="margin-bottom:0.75rem;">Sign up for the events you want to run at this meet:</p>
+        <div class="meet-signup-embed">
+          <iframe src="${esc(meet.signupFormEmbedUrl)}" width="100%" height="720" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+      </div>
+    `;
+  } else if (meet.signupFormUrl) {
+    html += `
+      <div class="card meet-signup">
+        <p style="margin-bottom:0.75rem;">Tell coaches which events you want to run. Please sign up before our Thursday pre-meet practice.</p>
+        <a href="${esc(meet.signupFormUrl)}" target="_blank" rel="noopener" class="meet-signup-btn">📝 Open Sign-Up Form</a>
+      </div>
+    `;
+  } else {
+    html += `
+      <div class="card meet-signup meet-signup-placeholder">
+        <p><strong>Sign-up form coming soon.</strong></p>
+        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.9rem;">
+          Coach note: create a Google Form (Google Forms → <em>Blank form</em>) with these questions:
+        </p>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;color:var(--muted);font-size:0.9rem;">
+          <li>Athlete name (short answer)</li>
+          <li>Grade (dropdown)</li>
+          <li>Events you'd like to run (checkboxes — list the events below)</li>
+        </ul>
+        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.9rem;">
+          Then paste the share link into <code>MEET_INFO["2026-04-18"].signupFormUrl</code> in <code>data.js</code>.
+          For an embedded form, use the <em>Send → &lt;/&gt;</em> embed URL and set <code>signupFormEmbedUrl</code>.
+        </p>
+      </div>
+    `;
+  }
+
+  // What to bring
+  if (meet.whatToBring && meet.whatToBring.length) {
+    html += `<h2 class="section-title" style="margin-top:1.5rem;">What to Bring</h2>`;
+    html += `<div class="card"><ul class="meet-bring-list">`;
+    meet.whatToBring.forEach((item) => {
+      html += `<li>${esc(item)}</li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  // Event schedule
+  if (meet.schedule && meet.schedule.length) {
+    html += `<h2 class="section-title" style="margin-top:1.5rem;">Event Schedule</h2>`;
+    html += `<div class="card meet-schedule-card">`;
+    html += `<div class="meet-schedule-list">`;
+    meet.schedule.forEach((row) => {
+      const typeClass = row.type ? `meet-row-${row.type}` : "";
+      html += `
+        <div class="meet-schedule-row ${typeClass}">
+          <div class="meet-schedule-time">${esc(row.time || "")}</div>
+          <div class="meet-schedule-event">
+            <div class="meet-schedule-name">${esc(row.event)}</div>
+            ${row.detail ? `<div class="meet-schedule-detail">${esc(row.detail)}</div>` : ""}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+
+  el.innerHTML = html;
 }
 
 function renderRoster() {

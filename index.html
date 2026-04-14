@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Track Team Hub</title>
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
 
@@ -31,6 +31,7 @@
 
     <nav class="nav">
       <button class="active" data-section="announcements">Announcements</button>
+      <button data-section="meet">This Meet</button>
       <button data-section="schedule">Schedule</button>
       <button data-section="roster">Roster</button>
       <button data-section="results">'26 Results</button>
@@ -44,6 +45,12 @@
       <div class="section active" id="section-announcements">
         <h2 class="section-title">Announcements</h2>
         <div id="announcements-list"></div>
+      </div>
+
+      <!-- This Meet -->
+      <div class="section" id="section-meet">
+        <h2 class="section-title">This Week's Meet</h2>
+        <div id="meet-content"></div>
       </div>
 
       <!-- Schedule -->
@@ -80,7 +87,7 @@
     </main>
   </div>
 
-  <script src="data.js?v=17"></script>
-  <script src="app.js?v=17"></script>
+  <script src="data.js?v=18"></script>
+  <script src="app.js?v=18"></script>
 </body>
 </html>
