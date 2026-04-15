@@ -54,10 +54,11 @@ STATUS:CONFIRMED
 UID:ya-track-20260416@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;VALUE=DATE:20260418
+DTSTART;TZID=America/Chicago:20260418T123000
+DTEND;TZID=America/Chicago:20260418T163000
 SUMMARY:🏃 MEET — St. Paul Central H.S.
 LOCATION:St. Paul Central HS — 275 Lexington Pkwy N\, St Paul\, MN 55104
-DESCRIPTION:Time TBD
+DESCRIPTION:Arrival by 12:30 PM · Field events begin 1:00 PM · Running events 1:30–4:20 PM · Parents provide transport both ways · DRESS WARM — cold\, windy\, chance of precipitation (snow pants\, winter jacket\, hat & gloves)
 STATUS:CONFIRMED
 UID:ya-track-20260418@yinghuaacademy.org
 END:VEVENT

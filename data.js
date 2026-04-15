@@ -55,7 +55,7 @@ const SCHEDULE = [
       field: "Shot put and discus with throws coach.",
     }},
   // ---- MEET ----
-  { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "TBD", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104" },
+  { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "Arrive 12:30 PM · Meet 1:00–4:30 PM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Parents provide transport both ways · DRESS WARM — cold/windy forecast (snow pants, winter jacket, hat & gloves)" },
   // ---- WEEK 3 ----
   { date: "2026-04-21", type: "practice", title: "Pre-Meet Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
