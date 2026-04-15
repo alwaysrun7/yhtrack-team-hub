@@ -79,7 +79,12 @@ function switchSection(name) {
 
 function renderAnnouncements() {
   const el = document.getElementById("announcements-list");
-  let html = `<div class="announcements-hero">
+  let html = "";
+
+  // Meet callout — links to This Meet page when a meet is upcoming
+  html += renderMeetCallout();
+
+  html += `<div class="announcements-hero">
     <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/04/athletic_dragon-removebg-preview.png" alt="Dragons Athletics" class="hero-dragon">
   </div>`;
 
@@ -100,6 +105,50 @@ function renderAnnouncements() {
 
   // Fetch live weather after rendering
   fetchWeather();
+}
+
+function renderMeetCallout() {
+  if (typeof MEET_INFO === "undefined") return "";
+
+  // Find next upcoming meet
+  const now = new Date();
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const todayStr = central.getFullYear() + "-" + String(central.getMonth() + 1).padStart(2, "0") + "-" + String(central.getDate()).padStart(2, "0");
+
+  const dates = Object.keys(MEET_INFO).sort();
+  let meetKey = null;
+  for (const d of dates) {
+    if (d >= todayStr) {
+      meetKey = d;
+      break;
+    }
+  }
+  if (!meetKey) return "";
+
+  const meet = MEET_INFO[meetKey];
+  const meetDate = new Date(meet.date + "T12:00:00");
+  const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
+  const dayMs = 1000 * 60 * 60 * 24;
+  const daysUntil = Math.round((meetDate - centralNoon) / dayMs);
+  let countdownText = "";
+  if (daysUntil > 1) countdownText = `${daysUntil} days away`;
+  else if (daysUntil === 1) countdownText = "Tomorrow!";
+  else if (daysUntil === 0) countdownText = "Today!";
+  else return "";
+
+  return `
+    <div class="meet-callout" onclick="switchSection('meet')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchSection('meet');}">
+      <div class="meet-callout-main">
+        <div class="meet-callout-badge">🏃 MEET DAY</div>
+        <div class="meet-callout-title">${esc(meet.title)}</div>
+        <div class="meet-callout-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
+      </div>
+      <div class="meet-callout-side">
+        <div class="meet-callout-countdown">${esc(countdownText)}</div>
+        <div class="meet-callout-cta">View meet info →</div>
+      </div>
+    </div>
+  `;
 }
 
 function renderNextEventCard() {
@@ -462,44 +511,6 @@ function renderMeet() {
         </div>
       `;
     });
-  }
-
-  // Event sign-up
-  html += `<h2 class="section-title" style="margin-top:1.5rem;">Event Sign-Up</h2>`;
-  if (meet.signupFormEmbedUrl) {
-    html += `
-      <div class="card meet-signup">
-        <p style="margin-bottom:0.75rem;">Sign up for the events you want to run at this meet:</p>
-        <div class="meet-signup-embed">
-          <iframe src="${esc(meet.signupFormEmbedUrl)}" width="100%" height="720" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        </div>
-      </div>
-    `;
-  } else if (meet.signupFormUrl) {
-    html += `
-      <div class="card meet-signup">
-        <p style="margin-bottom:0.75rem;">Tell coaches which events you want to run. Please sign up before our Thursday pre-meet practice.</p>
-        <a href="${esc(meet.signupFormUrl)}" target="_blank" rel="noopener" class="meet-signup-btn">📝 Open Sign-Up Form</a>
-      </div>
-    `;
-  } else {
-    html += `
-      <div class="card meet-signup meet-signup-placeholder">
-        <p><strong>Sign-up form coming soon.</strong></p>
-        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.9rem;">
-          Coach note: create a Google Form (Google Forms → <em>Blank form</em>) with these questions:
-        </p>
-        <ul style="margin-top:0.5rem;padding-left:1.25rem;color:var(--muted);font-size:0.9rem;">
-          <li>Athlete name (short answer)</li>
-          <li>Grade (dropdown)</li>
-          <li>Events you'd like to run (checkboxes — list the events below)</li>
-        </ul>
-        <p style="margin-top:0.5rem;color:var(--muted);font-size:0.9rem;">
-          Then paste the share link into <code>MEET_INFO["2026-04-18"].signupFormUrl</code> in <code>data.js</code>.
-          For an embedded form, use the <em>Send → &lt;/&gt;</em> embed URL and set <code>signupFormEmbedUrl</code>.
-        </p>
-      </div>
-    `;
   }
 
   // What to bring

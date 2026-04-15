@@ -138,26 +138,25 @@ const MEET_INFO = {
     arrival: "Athletes should arrive by 12:30 PM for check-in and warm-up.",
     transportation: "Parents provide transportation to and from the meet.",
     whatToBring: [
-      "Yinghua track uniform / team shirt",
+      "⚠️ DRESS WARM — forecast is cold, windy, chance of precipitation",
+      "Snow pants",
+      "Winter jacket",
+      "Winter hat and gloves",
+      "Yinghua track uniform / team shirt (to wear under warm layers)",
       "Running shoes + water bottle",
       "Snacks and lunch (it's a long meet!)",
-      "Warm layers — weather can change fast in April",
-      "Sunscreen",
+      "Change of clothes / extra socks in case you get wet",
     ],
     announcements: [
       {
-        title: "Sign up for your events!",
-        body: "Please use the sign-up form below to let coaches know which events you want to run. Sign up by Thursday 4/16 at practice so we can build heat sheets.",
+        title: "Tell a coach which events you want to run",
+        body: "Talk to Coach Drew, Coach David, or Coach Lily at Thursday's pre-meet practice (4/16) and let them know which events you'd like to do. We'll build heat sheets from there.",
       },
       {
         title: "Parent pickup",
         body: "There is no team bus for this meet. Parents are responsible for getting athletes to and from St. Paul Central.",
       },
     ],
-    // Paste your Google Form URL here once you create it. Use the /viewform URL for a link,
-    // or replace with the "embed" URL from Google Forms > Send > <> to iframe it into the page.
-    signupFormUrl: "",
-    signupFormEmbedUrl: "",
     schedule: [
       { time: "1:00 PM", event: "Opening Field Events Begin", detail: "Girls shot put · Boys discus · Girls high jump · Boys/Girls long jump (rolling)", type: "field" },
       { time: "", event: "Field Event Check-in", detail: "Check-in, warm-up, practice throws & jumps end at 1:15 PM (or at event official's discretion based on entries).", type: "note" },
