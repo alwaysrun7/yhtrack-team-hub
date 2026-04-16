@@ -729,6 +729,86 @@ body {
   color: #fff;
 }
 
+/* ---- ALERT / CANCELLATION STYLES ---- */
+.announcement-alert {
+  border-left: 5px solid var(--meet);
+  background: linear-gradient(180deg, #fff8f8 0%, #fff 100%);
+}
+
+.announcement-alert h3 {
+  color: var(--meet);
+}
+
+.badge-cancelled {
+  background: var(--meet);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.schedule-cancelled .schedule-date {
+  opacity: 0.5;
+}
+
+.schedule-cancelled .schedule-details h3 {
+  text-decoration: line-through;
+  text-decoration-color: rgba(198, 40, 40, 0.7);
+  text-decoration-thickness: 2px;
+  color: var(--muted);
+}
+
+.schedule-cancelled .schedule-details h3 .badge-cancelled {
+  text-decoration: none;
+  color: #fff;
+}
+
+.schedule-cancelled .meta {
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(198, 40, 40, 0.4);
+}
+
+.meet-cancelled-banner {
+  border-left: 5px solid var(--meet);
+  background: linear-gradient(135deg, #fff 0%, #fff0f0 100%);
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.meet-cancelled-label {
+  display: inline-block;
+  background: var(--meet);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.meet-cancelled-title {
+  font-size: 1.5rem;
+  color: var(--meet);
+  margin-bottom: 0.25rem;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+.meet-cancelled-date {
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.meet-cancelled-note {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
 /* ---- MEET CALLOUT (announcements page) ---- */
 .meet-callout {
   display: flex;

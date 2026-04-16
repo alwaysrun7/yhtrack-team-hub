@@ -15,6 +15,12 @@ const TEAM_COLORS = {
 // ---- ANNOUNCEMENTS ----
 const ANNOUNCEMENTS = [
   {
+    date: "2026-04-15",
+    title: "❌ Saturday's Meet Cancelled",
+    body: "Saturday's meet at St. Paul Central H.S. (4/18) has been cancelled. No need to travel to St. Paul — enjoy your weekend! Practice resumes Tuesday 4/21 as scheduled. Next meet is Wednesday 4/22 at Richfield MS.",
+    kind: "alert",
+  },
+  {
     date: "2026-04-02",
     title: "Welcome to the 2026 Season!",
     body: "We're excited to kick off another great year of Dragons Track & Field. Bring running shoes, water, and a great attitude to every practice!",
@@ -55,7 +61,7 @@ const SCHEDULE = [
       field: "Shot put and discus with throws coach.",
     }},
   // ---- MEET ----
-  { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "Arrive 12:30 PM · Meet 1:00–4:30 PM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Parents provide transport both ways · DRESS WARM — cold/windy forecast (snow pants, winter jacket, hat & gloves)" },
+  { date: "2026-04-18", type: "meet", title: "St. Paul Central H.S.", time: "CANCELLED", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "❌ CANCELLED — no meet this Saturday", cancelled: true },
   // ---- WEEK 3 ----
   { date: "2026-04-21", type: "practice", title: "Pre-Meet Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
@@ -135,6 +141,8 @@ const MEET_INFO = {
     location: "St. Paul Central HS",
     address: "275 Lexington Pkwy N, St Paul, MN 55104",
     mapUrl: "https://maps.google.com/?q=275+Lexington+Pkwy+N+St+Paul+MN+55104",
+    cancelled: true,
+    cancellationNote: "This meet has been cancelled. Practice resumes Tuesday 4/21. Next meet: Wednesday 4/22 at Richfield MS.",
     arrival: "Athletes should arrive by 12:30 PM for check-in and warm-up.",
     transportation: "Parents provide transportation to and from the meet.",
     whatToBring: [

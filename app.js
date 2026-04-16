@@ -81,7 +81,19 @@ function renderAnnouncements() {
   const el = document.getElementById("announcements-list");
   let html = "";
 
-  // Meet callout — links to This Meet page when a meet is upcoming
+  // Alert announcements render at the very top so cancellations / urgent notices are unmissable
+  const alerts = ANNOUNCEMENTS.filter((a) => a.kind === "alert");
+  const regular = ANNOUNCEMENTS.filter((a) => a.kind !== "alert");
+
+  html += alerts.map((a) => `
+    <div class="card announcement-alert">
+      <h3>${esc(a.title)}</h3>
+      <div class="meta">${formatDate(a.date)}</div>
+      <p>${esc(a.body)}</p>
+    </div>
+  `).join("");
+
+  // Meet callout — links to This Meet page when a meet is upcoming (suppressed for cancelled meets)
   html += renderMeetCallout();
 
   html += `<div class="announcements-hero">
@@ -94,7 +106,7 @@ function renderAnnouncements() {
   // Auto-generated "Up Next" card from schedule
   html += renderNextEventCard();
 
-  html += ANNOUNCEMENTS.map((a) => `
+  html += regular.map((a) => `
     <div class="card">
       <h3>${esc(a.title)}</h3>
       <div class="meta">${formatDate(a.date)}</div>
@@ -126,6 +138,9 @@ function renderMeetCallout() {
   if (!meetKey) return "";
 
   const meet = MEET_INFO[meetKey];
+  // Suppress the callout for cancelled meets — the cancellation announcement covers it.
+  if (meet.cancelled) return "";
+
   const meetDate = new Date(meet.date + "T12:00:00");
   const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
   const dayMs = 1000 * 60 * 60 * 24;
@@ -165,7 +180,7 @@ function renderNextEventCard() {
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   let next = null;
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
     if (s.date >= todayStr && !isOff) {
       next = s;
       break;
@@ -222,7 +237,7 @@ function renderWeatherWidget() {
   let nextPractice = null;
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
     if (s.date >= todayStr && !isOff) {
       nextPractice = s;
       break;
@@ -272,7 +287,7 @@ function fetchWeather() {
       let nextDate = null;
       const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
       for (const s of sorted) {
-        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice");
+        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
         if (s.date >= todayStr && !isOff) {
           nextDate = s.date;
           break;
@@ -366,7 +381,7 @@ function renderSchedule() {
   const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
   let nextIdx = -1;
   for (let i = 0; i < sorted.length; i++) {
-    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice");
+    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice") || sorted[i].cancelled;
     if (sorted[i].date >= todayStr && !isOff) {
       nextIdx = i;
       break;
@@ -406,15 +421,15 @@ function renderSchedule() {
     const hasPlan = s.plan && Object.keys(s.plan).length > 0;
     const isNext = i === nextIdx;
     return `
-      <div class="card schedule-item ${hasPlan ? "has-plan" : ""} ${isNext ? "next-up" : ""}" id="${isNext ? "next-event" : ""}" ${hasPlan ? 'onclick="this.classList.toggle(\'expanded\')"' : ""}>
+      <div class="card schedule-item ${hasPlan ? "has-plan" : ""} ${isNext ? "next-up" : ""} ${s.cancelled ? "schedule-cancelled" : ""}" id="${isNext ? "next-event" : ""}" ${hasPlan && !s.cancelled ? 'onclick="this.classList.toggle(\'expanded\')"' : ""}>
         ${isNext ? '<div class="next-up-badge">UP NEXT</div>' : ""}
         <div class="schedule-date">
           <div class="month">${month}</div>
           <div class="day">${day}</div>
         </div>
         <div class="schedule-details">
-          <h3>${esc(s.title)} <span class="badge ${isMeet ? "badge-meet" : "badge-practice"}">${isMeet ? "Meet" : "Practice"}</span>${hasPlan ? ' <span class="expand-hint">tap for details</span>' : ""}</h3>
-          <div class="meta">${esc(s.time)} &middot; ${esc(s.location)}</div>
+          <h3>${esc(s.title)} <span class="badge ${isMeet ? "badge-meet" : "badge-practice"}">${isMeet ? "Meet" : "Practice"}</span>${s.cancelled ? ' <span class="badge badge-cancelled">CANCELLED</span>' : ""}${hasPlan && !s.cancelled ? ' <span class="expand-hint">tap for details</span>' : ""}</h3>
+          <div class="meta">${s.cancelled ? esc(s.location) : esc(s.time) + " &middot; " + esc(s.location)}</div>
           ${s.notes ? `<div class="meta" style="margin-top:0.25rem;font-style:italic">${esc(s.notes)}</div>` : ""}
           ${hasPlan ? `
             <div class="practice-plan">
@@ -481,6 +496,20 @@ function renderMeet() {
   else countdownText = "Completed";
 
   let html = "";
+
+  // Cancellation banner — shows instead of the hero when meet is cancelled
+  if (meet.cancelled) {
+    html += `
+      <div class="card meet-cancelled-banner">
+        <div class="meet-cancelled-label">❌ MEET CANCELLED</div>
+        <h3 class="meet-cancelled-title">${esc(meet.title)}</h3>
+        <div class="meet-cancelled-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
+        ${meet.cancellationNote ? `<p class="meet-cancelled-note">${esc(meet.cancellationNote)}</p>` : ""}
+      </div>
+    `;
+    el.innerHTML = html;
+    return;
+  }
 
   // Hero card
   html += `
