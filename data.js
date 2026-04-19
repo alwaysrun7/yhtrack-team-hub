@@ -77,17 +77,18 @@ const SCHEDULE = [
       field: "Practice hurdles and long jump.",
     }},
   // ---- WEEK 4 ----
+  // NOTE: Throws coach (KP) swapped to Tue 4/28 this week — KP has a work conflict Thu 4/30.
   { date: "2026-04-28", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "4x100m relay repeats. Sprint form drills.",
       distance: "Fartlek with pace groups (15 min conversational). 5 min handoff practice.",
-      field: "Practice hurdles and long jump.",
+      field: "Shot put and discus with throws coach (swapped from Thu this week).",
     }},
   { date: "2026-04-30", type: "practice", title: "Practice — Week 4", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "400m relay teams (2-3 people; 4x400m each).",
       distance: "400m relay teams (2-3 people; 4x400m each).",
-      field: "Shot put and discus with throws coach.",
+      field: "Practice hurdles and long jump (throws coach out this Thursday).",
     }},
   // ---- WEEK 5 ----
   { date: "2026-05-05", type: "practice", title: "Pre-Meet Practice — Week 5", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
