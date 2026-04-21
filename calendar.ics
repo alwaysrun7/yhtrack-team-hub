@@ -74,12 +74,13 @@ STATUS:CONFIRMED
 UID:ya-track-20260421@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;TZID=America/Chicago:20260422T163000
+DTSTART;TZID=America/Chicago:20260422T161500
 DTEND;TZID=America/Chicago:20260422T180000
 SUMMARY:🏃 MEET — Richfield MS
 LOCATION:Richfield HS — 7001 Harriet Ave\, Richfield\, MN 55423
-DESCRIPTION:Grades 6-8 · Dismiss 3:15 · Bus 3:30
+DESCRIPTION:Start 4:15 PM · Parent pickup ~6:00 PM · Grades 6–8 only (no 5th) · 4 schools · Bus from Yinghua (one-way\, parents pick up at meet) · Park in main lot\, track at back — walk over train tracks · Athletes can wear jersey to school with regular uniform bottoms · Max 4 events per athlete (3 run + 1 field OR 3 field + 1 run)
 STATUS:CONFIRMED
+SEQUENCE:1
 UID:ya-track-20260422@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT

@@ -526,6 +526,9 @@ function renderMeet() {
       </div>
       ${meet.arrival ? `<div class="meet-hero-note"><strong>Arrival:</strong> ${esc(meet.arrival)}</div>` : ""}
       ${meet.transportation ? `<div class="meet-hero-note"><strong>Transportation:</strong> ${esc(meet.transportation)}</div>` : ""}
+      ${meet.parking ? `<div class="meet-hero-note"><strong>Parking:</strong> ${esc(meet.parking)}</div>` : ""}
+      ${meet.eligibility ? `<div class="meet-hero-note"><strong>Who:</strong> ${esc(meet.eligibility)}</div>` : ""}
+      ${meet.uniform ? `<div class="meet-hero-note"><strong>Uniform:</strong> ${esc(meet.uniform)}</div>` : ""}
     </div>
   `;
 

@@ -15,9 +15,9 @@ const TEAM_COLORS = {
 // ---- ANNOUNCEMENTS ----
 const ANNOUNCEMENTS = [
   {
-    date: "2026-04-15",
-    title: "❌ Saturday's Meet Cancelled",
-    body: "Saturday's meet at St. Paul Central H.S. (4/18) has been cancelled. No need to travel to St. Paul — enjoy your weekend! Practice resumes Tuesday 4/21 as scheduled. Next meet is Wednesday 4/22 at Richfield MS.",
+    date: "2026-04-21",
+    title: "🏃 Meet Tomorrow — Richfield HS (4:15 PM start)",
+    body: "Meet is at Richfield HS (7001 Harriet Ave, Richfield). Park anywhere in the main lot — the track is at the back; walk over the train tracks. Start time 4:15 PM, 4 schools attending. Athletes take the bus from Yinghua (one-way); parents pick up at the meet around 6:00 PM. Grades 6–8 only (no 5th graders at this meet). Athletes can wear their jersey to school with regular uniform bottoms. Listen for event calls to keep things moving!",
     kind: "alert",
   },
   {
@@ -69,7 +69,7 @@ const SCHEDULE = [
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
       field: "Shot put and discus with throws coach.",
     }},
-  { date: "2026-04-22", type: "meet", title: "Richfield MS", time: "4:30 PM", location: "Richfield HS — 7001 Harriet Ave, Richfield, MN 55423", notes: "Grades 6-8 · Dismiss 3:15 · Bus 3:30" },
+  { date: "2026-04-22", type: "meet", title: "Richfield MS", time: "4:15 PM start · Pickup ~6:00 PM", location: "Richfield HS — 7001 Harriet Ave, Richfield, MN 55423", notes: "Grades 6–8 only (no 5th) · Bus from Yinghua (one-way) · Parents pick up at meet · Jersey to school with uniform bottoms" },
   { date: "2026-04-23", type: "practice", title: "Practice — Week 3", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Sprint drills, shuttle relays.",
@@ -189,6 +189,63 @@ const MEET_INFO = {
       { time: "4:00 PM", event: "Boys 4x400m Relay", type: "track" },
       { time: "4:10 PM", event: "Co-ed 4x100m Relay", detail: "Pass anything BUT a baton!", type: "fun" },
       { time: "4:20 PM", event: "Coaches / Parents 4x100m Relay", detail: "Come cheer on the grown-ups!", type: "fun" },
+    ],
+  },
+  "2026-04-22": {
+    title: "Richfield MS Meet",
+    date: "2026-04-22",
+    dayLabel: "Wednesday, April 22",
+    location: "Richfield High School",
+    address: "7001 Harriet Ave, Richfield, MN 55423",
+    mapUrl: "https://maps.google.com/?q=7001+Harriet+Ave+Richfield+MN+55423",
+    arrival: "Meet starts at 4:15 PM. Athletes ride the bus from Yinghua (one-way). 4 schools total — listen for event calls to keep things moving.",
+    transportation: "Bus provided from Yinghua (one-way only). Parents pick up from the meet around 6:00 PM.",
+    parking: "Park anywhere in the main lot at Richfield HS. The track is at the back of the property — walk over the train tracks to get there.",
+    eligibility: "Grades 6–8 only — no 5th graders at this meet.",
+    uniform: "Athletes can wear their jersey to school with regular uniform bottoms.",
+    announcements: [
+      {
+        title: "Max 4 events per athlete",
+        body: "Each athlete can compete in up to 4 total events (including relays): either 3 running + 1 field, OR 3 field + 1 running.",
+      },
+      {
+        title: "Listen for event calls!",
+        body: "4 schools means a lot of athletes. Stay close to the track and listen for your event being called so we can keep things moving and get out at a reasonable time.",
+      },
+      {
+        title: "Parent pickup at the meet",
+        body: "The bus ride is one-way (Yinghua → Richfield). Please plan to pick up your athlete from Richfield HS around 6:00 PM.",
+      },
+    ],
+    signupFormUrl: "",
+    signupFormEmbedUrl: "",
+    whatToBring: [
+      "Yinghua jersey (can wear to school with uniform bottoms)",
+      "Running shoes + water bottle",
+      "Warm layers — spring evenings can get chilly",
+      "Snacks",
+    ],
+    // Running events run in this fixed order. Within each event: 6/7 girls → 8 girls → 6/7 boys → 8 boys.
+    // Field events run concurrently. No per-event start times published — listen for calls at the meet.
+    schedule: [
+      { time: "4:15 PM", event: "Meet begins", detail: "Running events run in the order below. Within each event: 6/7 girls → 8 girls → 6/7 boys → 8 boys. Field events run concurrently throughout the meet.", type: "note" },
+      { time: "", event: "Running Events (in order)", detail: "", type: "note" },
+      { time: "", event: "75m Low Hurdles", detail: "7 hurdles total (13m to first, 8.5m between, 11m to finish)", type: "track" },
+      { time: "", event: "100m Dash", type: "track" },
+      { time: "", event: "4x200m Relay", type: "track" },
+      { time: "", event: "1600m Run", detail: "One heat for all boys, one for all girls (may combine if small fields)", type: "track" },
+      { time: "", event: "4x100m Relay", type: "track" },
+      { time: "", event: "400m Dash", type: "track" },
+      { time: "", event: "800m Run", detail: "One heat boys, one heat girls — not combined", type: "track" },
+      { time: "", event: "200m Dash", type: "track" },
+      { time: "", event: "4x400m Relay", detail: "Schools may enter up to 4 teams; top finish scores", type: "track" },
+      { time: "", event: "Field Events (concurrent throughout meet)", detail: "", type: "note" },
+      { time: "", event: "Shot Put", detail: "8 lb ball · 3 throws", type: "field" },
+      { time: "", event: "Discus", detail: "3 throws", type: "field" },
+      { time: "", event: "Long Jump", detail: "3 jumps", type: "field" },
+      { time: "", event: "Triple Jump", detail: "3 jumps", type: "field" },
+      { time: "", event: "High Jump", detail: "Starting: 7G 3'6\" · 8G 3'10\" · 7B 3'10\" · 8B 4'2\" · 2\" increases", type: "field" },
+      { time: "~6:00 PM", event: "Parent Pickup", detail: "Meet wraps around 6 PM. Parents pick up at Richfield HS.", type: "note" },
     ],
   },
 };
