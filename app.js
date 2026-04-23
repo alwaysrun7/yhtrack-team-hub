@@ -93,8 +93,13 @@ function renderAnnouncements() {
     </div>
   `).join("");
 
-  // Meet callout — links to This Meet page when a meet is upcoming (suppressed for cancelled meets)
-  html += renderMeetCallout();
+  // Upcoming meet callout (links to This Meet page) OR recent result callout (links to Results page)
+  const upcomingCallout = renderMeetCallout();
+  if (upcomingCallout) {
+    html += upcomingCallout;
+  } else {
+    html += renderLatestResultCallout();
+  }
 
   html += `<div class="announcements-hero">
     <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/04/athletic_dragon-removebg-preview.png" alt="Dragons Athletics" class="hero-dragon">
@@ -162,6 +167,52 @@ function renderMeetCallout() {
         <div class="meet-callout-countdown">${esc(countdownText)}</div>
         <div class="meet-callout-cta">View meet info →</div>
       </div>
+    </div>
+  `;
+}
+
+function renderLatestResultCallout() {
+  if (typeof RESULTS === "undefined" || !RESULTS.length) return "";
+
+  // Find most recent result by date
+  const sorted = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date));
+  const latest = sorted[0];
+  if (!latest) return "";
+
+  // Only show if the meet is in the past (and within ~3 weeks so it stays fresh)
+  const now = new Date();
+  const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+  const todayStr = central.getFullYear() + "-" + String(central.getMonth() + 1).padStart(2, "0") + "-" + String(central.getDate()).padStart(2, "0");
+  if (latest.date > todayStr) return ""; // meet hasn't happened yet
+
+  const meetDate = new Date(latest.date + "T12:00:00");
+  const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
+  const daysAgo = Math.round((centralNoon - meetDate) / (1000 * 60 * 60 * 24));
+  if (daysAgo > 21) return ""; // stale after 3 weeks
+
+  let ago;
+  if (daysAgo <= 0) ago = "Today";
+  else if (daysAgo === 1) ago = "Yesterday";
+  else ago = `${daysAgo} days ago`;
+
+  const athleteCount = new Set();
+  (latest.events || []).forEach((e) => (e.results || []).forEach((r) => athleteCount.add(r.athlete)));
+  const photoCount = (latest.photos || []).length;
+
+  const statParts = [];
+  if (athleteCount.size) statParts.push(`${athleteCount.size} athletes`);
+  if ((latest.events || []).length) statParts.push(`${latest.events.length} events`);
+  if (photoCount) statParts.push(`${photoCount} photos`);
+  const stats = statParts.join(" · ");
+
+  return `
+    <div class="result-callout" onclick="switchSection('results')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchSection('results');}">
+      <div class="result-callout-main">
+        <div class="result-callout-badge">🏆 MEET RESULTS</div>
+        <div class="result-callout-title">${esc(latest.meet)}</div>
+        <div class="result-callout-meta">${esc(ago)}${stats ? " · " + esc(stats) : ""}</div>
+      </div>
+      <div class="result-callout-cta">View results →</div>
     </div>
   `;
 }
@@ -654,27 +705,191 @@ function renderResults() {
     el.innerHTML = '<div class="card"><p>No meet results yet. Check back after the first meet!</p></div>';
     return;
   }
-  el.innerHTML = RESULTS.map((r) => `
-    <div class="card">
-      <div class="result-meet-header">
-        <div>
-          <h3>${esc(r.meet)}</h3>
-          <div class="meta">${formatDate(r.date)}</div>
+
+  // Sort newest first
+  const sorted = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date));
+
+  el.innerHTML = sorted.map((r, idx) => {
+    // New format: events + photos; old format: highlights
+    if (r.events) return renderMeetResult(r, idx);
+    // Legacy fallback
+    return `
+      <div class="card">
+        <div class="result-meet-header">
+          <div>
+            <h3>${esc(r.meet)}</h3>
+            <div class="meta">${formatDate(r.date)}</div>
+          </div>
+          ${r.teamPlace ? `<span class="place-badge">${esc(r.teamPlace)}</span>` : ""}
         </div>
-        <span class="place-badge">${esc(r.teamPlace)}</span>
+        <div class="results-grid">
+          ${(r.highlights || []).map((h) => `
+            <div class="result-item">
+              <div class="athlete">${esc(h.athlete)}</div>
+              <div class="event">${esc(h.event)}</div>
+              <div class="mark">${esc(h.result)}</div>
+              <div class="place-text">${esc(h.place)}</div>
+            </div>
+          `).join("")}
+        </div>
       </div>
-      <div class="results-grid">
-        ${r.highlights.map((h) => `
-          <div class="result-item">
-            <div class="athlete">${esc(h.athlete)}</div>
-            <div class="event">${esc(h.event)}</div>
-            <div class="mark">${esc(h.result)}</div>
-            <div class="place-text">${esc(h.place)}</div>
+    `;
+  }).join("");
+
+  // Wire lightbox
+  setupResultsLightbox();
+}
+
+function renderMeetResult(r, idx) {
+  const athleteCount = new Set();
+  (r.events || []).forEach((e) => (e.results || []).forEach((res) => athleteCount.add(res.athlete)));
+
+  // Group events by kind for better visual structure
+  const running = (r.events || []).filter((e) => e.kind === "track" && !e.relay);
+  const relays = (r.events || []).filter((e) => e.kind === "track" && e.relay);
+  const field = (r.events || []).filter((e) => e.kind === "field");
+
+  const orderedEvents = [...running, ...relays, ...field];
+  const heatOrder = ["6/7 Girls", "8 Girls", "6/7 Boys", "8 Boys"];
+
+  const eventBlock = (evt) => {
+    // For relays: group by mark (time). For individual: group by heat.
+    let groups;
+    if (evt.relay) {
+      // Group athletes sharing the same mark (= same relay team time)
+      const byMark = {};
+      evt.results.forEach((res) => {
+        (byMark[res.mark] = byMark[res.mark] || []).push(res);
+      });
+      groups = Object.keys(byMark).map((mark) => ({
+        label: byMark[mark][0].heat + " · " + mark,
+        mark,
+        athletes: byMark[mark],
+      }));
+    } else {
+      const byHeat = {};
+      heatOrder.forEach((h) => (byHeat[h] = []));
+      evt.results.forEach((res) => {
+        const h = res.heat || heatOrder[0];
+        (byHeat[h] = byHeat[h] || []).push(res);
+      });
+      groups = heatOrder
+        .filter((h) => byHeat[h] && byHeat[h].length)
+        .map((h) => ({ label: h, athletes: byHeat[h] }));
+    }
+
+    return `
+      <div class="result-event ${evt.kind === "field" ? "result-field" : evt.relay ? "result-relay" : "result-track"}">
+        <div class="result-event-head">${esc(evt.name)}</div>
+        ${groups.map((g) => `
+          <div class="result-heat">
+            <div class="result-heat-label">${esc(g.label)}</div>
+            <div class="result-heat-rows">
+              ${g.athletes.map((a) => `
+                <div class="result-row">
+                  <div class="result-athlete">${esc(a.athlete)}${a.grade ? `<span class="result-gr">gr${a.grade}</span>` : ""}</div>
+                  <div class="result-mark">${esc(a.mark)}</div>
+                </div>
+              `).join("")}
+            </div>
           </div>
         `).join("")}
       </div>
+    `;
+  };
+
+  const photos = r.photos || [];
+
+  return `
+    <div class="card result-meet">
+      <div class="result-meet-hero">
+        <div>
+          <h3>${esc(r.meet)}</h3>
+          <div class="meta">${formatDate(r.date)}${r.location ? " · " + esc(r.location) : ""}</div>
+        </div>
+        <div class="result-stats">
+          <span class="stat"><strong>${athleteCount.size}</strong> athletes</span>
+          <span class="stat"><strong>${orderedEvents.length}</strong> events</span>
+        </div>
+      </div>
+      ${r.teamRecap ? `<p class="result-recap">${esc(r.teamRecap)}</p>` : ""}
+
+      ${photos.length ? `
+        <div class="result-photos-block">
+          <div class="result-section-title">Photos</div>
+          <div class="result-photo-grid">
+            ${photos.map((p, i) => `
+              <button class="result-photo" data-meet-idx="${idx}" data-photo-idx="${i}" aria-label="Open photo ${i + 1} of ${photos.length}">
+                <img src="${esc(p.src)}" loading="lazy" alt="Team photo ${i + 1}">
+              </button>
+            `).join("")}
+          </div>
+        </div>
+      ` : ""}
+
+      <div class="result-events-block">
+        <div class="result-section-title">Event Results</div>
+        ${orderedEvents.map(eventBlock).join("")}
+      </div>
     </div>
-  `).join("");
+  `;
+}
+
+function setupResultsLightbox() {
+  let lightbox = document.getElementById("lightbox");
+  if (!lightbox) {
+    lightbox = document.createElement("div");
+    lightbox.id = "lightbox";
+    lightbox.className = "lightbox";
+    lightbox.innerHTML = `
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" aria-label="Previous">&#10094;</button>
+      <img class="lightbox-img" alt="">
+      <button class="lightbox-next" aria-label="Next">&#10095;</button>
+      <div class="lightbox-caption"></div>
+    `;
+    document.body.appendChild(lightbox);
+  }
+  const img = lightbox.querySelector(".lightbox-img");
+  const caption = lightbox.querySelector(".lightbox-caption");
+  let currentMeetIdx = 0, currentPhotoIdx = 0;
+
+  function showPhoto() {
+    const meet = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date))[currentMeetIdx];
+    if (!meet || !meet.photos || !meet.photos[currentPhotoIdx]) return;
+    img.src = meet.photos[currentPhotoIdx].src;
+    caption.textContent = `${meet.meet} · Photo ${currentPhotoIdx + 1} of ${meet.photos.length}`;
+  }
+
+  document.querySelectorAll(".result-photo").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      currentMeetIdx = parseInt(btn.dataset.meetIdx, 10);
+      currentPhotoIdx = parseInt(btn.dataset.photoIdx, 10);
+      lightbox.classList.add("active");
+      showPhoto();
+    });
+  });
+
+  lightbox.querySelector(".lightbox-close").onclick = () => lightbox.classList.remove("active");
+  lightbox.onclick = (e) => { if (e.target === lightbox) lightbox.classList.remove("active"); };
+  lightbox.querySelector(".lightbox-prev").onclick = (e) => {
+    e.stopPropagation();
+    const meet = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date))[currentMeetIdx];
+    currentPhotoIdx = (currentPhotoIdx - 1 + meet.photos.length) % meet.photos.length;
+    showPhoto();
+  };
+  lightbox.querySelector(".lightbox-next").onclick = (e) => {
+    e.stopPropagation();
+    const meet = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date))[currentMeetIdx];
+    currentPhotoIdx = (currentPhotoIdx + 1) % meet.photos.length;
+    showPhoto();
+  };
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("active")) return;
+    if (e.key === "Escape") lightbox.classList.remove("active");
+    if (e.key === "ArrowLeft") lightbox.querySelector(".lightbox-prev").click();
+    if (e.key === "ArrowRight") lightbox.querySelector(".lightbox-next").click();
+  });
 }
 
 function renderResults2025() {
