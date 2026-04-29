@@ -580,6 +580,8 @@ function renderMeet() {
       ${meet.parking ? `<div class="meet-hero-note"><strong>Parking:</strong> ${esc(meet.parking)}</div>` : ""}
       ${meet.eligibility ? `<div class="meet-hero-note"><strong>Who:</strong> ${esc(meet.eligibility)}</div>` : ""}
       ${meet.uniform ? `<div class="meet-hero-note"><strong>Uniform:</strong> ${esc(meet.uniform)}</div>` : ""}
+      ${meet.teams ? `<div class="meet-hero-note"><strong>Teams:</strong> ${esc(meet.teams)}</div>` : ""}
+      ${meet.admission ? `<div class="meet-hero-note"><strong>Admission:</strong> ${esc(meet.admission)}</div>` : ""}
     </div>
   `;
 
@@ -624,6 +626,16 @@ function renderMeet() {
       `;
     });
     html += `</div></div>`;
+  }
+
+  // Field event notes
+  if (meet.fieldEventNotes && meet.fieldEventNotes.length) {
+    html += `<h2 class="section-title" style="margin-top:1.5rem;">Field Event Notes</h2>`;
+    html += `<div class="card"><ul class="meet-bring-list">`;
+    meet.fieldEventNotes.forEach((item) => {
+      html += `<li>${esc(item)}</li>`;
+    });
+    html += `</ul></div>`;
   }
 
   el.innerHTML = html;

@@ -54,16 +54,6 @@ STATUS:CONFIRMED
 UID:ya-track-20260416@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;TZID=America/Chicago:20260418T123000
-DTEND;TZID=America/Chicago:20260418T163000
-SUMMARY:❌ CANCELLED — St. Paul Central H.S. Meet
-LOCATION:St. Paul Central HS — 275 Lexington Pkwy N\, St Paul\, MN 55104
-DESCRIPTION:This meet has been CANCELLED. Practice resumes Tuesday 4/21. Next meet: Wednesday 4/22 at Richfield MS.
-STATUS:CANCELLED
-SEQUENCE:1
-UID:ya-track-20260418@yinghuaacademy.org
-END:VEVENT
-BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260421T153000
 DTEND;TZID=America/Chicago:20260421T170000
 SUMMARY:Yinghua Track Practice (Pre-Meet) — Week 3
@@ -128,8 +118,9 @@ DTSTART;TZID=America/Chicago:20260506T161500
 DTEND;TZID=America/Chicago:20260506T180000
 SUMMARY:🏃 MEET — Olson MS–Bloomington
 LOCATION:Jefferson HS — 4001 W 102nd St\, Bloomington\, MN 55437
-DESCRIPTION:Grades 6-8 · Dismiss 3:05 · Bus 3:15
+DESCRIPTION:Grades 6-8 · Dismiss 3:05 · Bus 3:15 · Parent pickup at meet ~6:00 PM
 STATUS:CONFIRMED
+SEQUENCE:1
 UID:ya-track-20260506@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
@@ -141,6 +132,16 @@ GEO:45.003867;-93.240431
 DESCRIPTION:Pickup at 5:00 PM · Gym available
 STATUS:CONFIRMED
 UID:ya-track-20260507@yinghuaacademy.org
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/Chicago:20260509T090000
+DTEND;TZID=America/Chicago:20260509T120000
+SUMMARY:❌ CANCELLED — St. Paul Central All-Comers Meet
+LOCATION:St. Paul Central HS — 275 Lexington Pkwy N\, St Paul\, MN 55104
+DESCRIPTION:Yinghua is NOT attending this meet — it runs all day (9 AM – 5 PM) which is too long for our team. No team activity Saturday May 9.
+STATUS:CANCELLED
+SEQUENCE:1
+UID:ya-track-20260509@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260512T153000
@@ -172,11 +173,13 @@ STATUS:CONFIRMED
 UID:ya-track-20260514@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;VALUE=DATE:20260515
+DTSTART;TZID=America/Chicago:20260515T170000
+DTEND;TZID=America/Chicago:20260515T200000
 SUMMARY:🏃 MEET — TCGIS
 LOCATION:Concordia Academy — 2400 Dale St N\, Roseville\, MN 55113
-DESCRIPTION:Grades 5-8 · Time TBD
+DESCRIPTION:Grades 5-8 · 5:00–8:00 PM · No bus · Parents provide transportation
 STATUS:CONFIRMED
+SEQUENCE:1
 UID:ya-track-20260515@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT
