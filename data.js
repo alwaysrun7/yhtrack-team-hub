@@ -97,6 +97,8 @@ const SCHEDULE = [
       distance: "Fartlek with pace groups (15 min conversational).",
       field: "Shot put and discus with throws coach.",
     }},
+  // ---- RESCHEDULED MEET (Saturday, MS only) ----
+  { date: "2026-05-09", type: "meet", title: "St. Paul Central H.S. (rescheduled)", time: "9:00 AM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Saturday morning · MS only · Parents provide transportation · Done by ~12:00 PM" },
   // ---- WEEK 6 ----
   { date: "2026-05-12", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
@@ -128,6 +130,49 @@ const SCHEDULE = [
 // signupFormUrl: paste a Google Form URL here to let athletes sign up for events.
 // To embed the form directly in the page, use the embeddable share URL (ends in /viewform?embedded=true).
 const MEET_INFO = {
+  "2026-05-09": {
+    title: "St. Paul Central H.S. (rescheduled)",
+    date: "2026-05-09",
+    dayLabel: "Saturday, May 9",
+    location: "St. Paul Central High School Track",
+    address: "275 Lexington Pkwy N, St Paul, MN 55104",
+    mapUrl: "https://maps.google.com/?q=275+Lexington+Pkwy+N+St+Paul+MN+55104",
+    arrival: "9:00 AM start. Plan to be at the track by 8:30 AM for warm-up. Done by ~12:00 PM.",
+    transportation: "No bus — parents provide transportation to and from the meet.",
+    eligibility: "Middle school only.",
+    announcements: [
+      {
+        title: "This is the rescheduled 4/18 meet",
+        body: "Trimmed-down format this time — middle school only, shorter distances (60m hurdles and 60m dash), and the whole meet wraps up before noon.",
+      },
+      {
+        title: "Tell a coach which events you want to run",
+        body: "Talk to Coach Drew, Coach David, or Coach Lily at Thursday's pre-meet practice (5/7) so we can build heat sheets.",
+      },
+    ],
+    whatToBring: [
+      "Yinghua track uniform / team shirt",
+      "Running shoes + spikes if you have them",
+      "Water bottle (refillable)",
+      "Snacks for the morning",
+      "Warm layers — early Saturday morning",
+      "Camp chair or blanket — team camps go in the bleachers",
+    ],
+    schedule: [
+      { time: "9:00 AM", event: "Opening of Field Events", type: "field" },
+      { time: "9:30 AM", event: "4x800m Relay", type: "track" },
+      { time: "9:40 AM", event: "60m Hurdles", type: "track" },
+      { time: "9:50 AM", event: "60m Dash", type: "track" },
+      { time: "10:00 AM", event: "1600m Run", type: "track" },
+      { time: "10:20 AM", event: "400m Dash", detail: "No blocks", type: "track" },
+      { time: "10:30 AM", event: "800m Run", type: "track" },
+      { time: "10:40 AM", event: "200m Run", type: "track" },
+      { time: "10:50 AM", event: "1600m Run (fast section)", type: "track" },
+      { time: "11:10 AM", event: "4x400m Relay", type: "track" },
+      { time: "", event: "4x100m — Anything But a Baton Relay", detail: "Pass anything but a baton!", type: "fun" },
+      { time: "", event: "4x100m — Coaches / Parents Relay", detail: "Come cheer on the grown-ups!", type: "fun" },
+    ],
+  },
   "2026-05-06": {
     title: "Olson MS — Bloomington Track Meet",
     date: "2026-05-06",
