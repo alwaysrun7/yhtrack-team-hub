@@ -93,7 +93,7 @@ function renderAnnouncements() {
     </div>
   `).join("");
 
-  // Upcoming meet callout (links to This Meet page) OR recent result callout (links to Results page)
+  // Upcoming meet callout (links to Next Meets page) OR recent result callout (links to Results page)
   const upcomingCallout = renderMeetCallout();
   if (upcomingCallout) {
     html += upcomingCallout;
@@ -511,132 +511,152 @@ function renderMeet() {
     return;
   }
 
-  // Find the next upcoming meet based on today's date (Central time)
+  // Get all upcoming meets based on today's date (Central time)
   const now = new Date();
   const central = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
   const todayStr = central.getFullYear() + "-" + String(central.getMonth() + 1).padStart(2, "0") + "-" + String(central.getDate()).padStart(2, "0");
+  const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
+  const dayMs = 1000 * 60 * 60 * 24;
 
   const dates = Object.keys(MEET_INFO).sort();
-  let meetKey = null;
-  for (const d of dates) {
-    if (d >= todayStr) {
-      meetKey = d;
-      break;
-    }
-  }
+  let upcomingKeys = dates.filter((d) => d >= todayStr);
+
   // Fallback: if no upcoming meet, show the most recent one
-  if (!meetKey && dates.length) {
-    meetKey = dates[dates.length - 1];
+  if (!upcomingKeys.length && dates.length) {
+    upcomingKeys = [dates[dates.length - 1]];
   }
-  if (!meetKey) {
+  if (!upcomingKeys.length) {
     el.innerHTML = '<div class="card"><p>No upcoming meet info posted yet.</p></div>';
     return;
   }
 
-  const meet = MEET_INFO[meetKey];
-
-  // Days-until countdown
-  const meetDate = new Date(meet.date + "T12:00:00");
-  const centralNoon = new Date(central.getFullYear(), central.getMonth(), central.getDate(), 12, 0, 0);
-  const dayMs = 1000 * 60 * 60 * 24;
-  const daysUntil = Math.round((meetDate - centralNoon) / dayMs);
-  let countdownText = "";
-  if (daysUntil > 1) countdownText = `${daysUntil} days away`;
-  else if (daysUntil === 1) countdownText = "Tomorrow!";
-  else if (daysUntil === 0) countdownText = "Today — go Dragons!";
-  else countdownText = "Completed";
-
   let html = "";
 
-  // Cancellation banner — shows instead of the hero when meet is cancelled
-  if (meet.cancelled) {
+  // Jump-to nav when there are multiple upcoming meets
+  if (upcomingKeys.length > 1) {
+    html += `<div class="meet-jump-nav">`;
+    html += `<span class="meet-jump-label">Jump to:</span>`;
+    upcomingKeys.forEach((key, idx) => {
+      const m = MEET_INFO[key];
+      const shortLabel = m.dayLabel ? m.dayLabel.replace(/^[A-Za-z]+,\s*/, "") : key;
+      html += `<a href="#meet-${key}" class="meet-jump-link${idx === 0 ? " meet-jump-current" : ""}">${esc(shortLabel)} — ${esc(m.title)}</a>`;
+    });
+    html += `</div>`;
+  }
+
+  // Render each upcoming meet
+  upcomingKeys.forEach((meetKey, idx) => {
+    const meet = MEET_INFO[meetKey];
+
+    // Days-until countdown
+    const meetDate = new Date(meet.date + "T12:00:00");
+    const daysUntil = Math.round((meetDate - centralNoon) / dayMs);
+    let countdownText = "";
+    if (daysUntil > 1) countdownText = `${daysUntil} days away`;
+    else if (daysUntil === 1) countdownText = "Tomorrow!";
+    else if (daysUntil === 0) countdownText = "Today — go Dragons!";
+    else countdownText = "Completed";
+
+    // Anchor + section wrapper
+    html += `<section class="meet-section" id="meet-${esc(meetKey)}">`;
+
+    // Cancellation banner — shows instead of the hero when meet is cancelled
+    if (meet.cancelled) {
+      html += `
+        <div class="card meet-cancelled-banner">
+          <div class="meet-cancelled-label">❌ MEET CANCELLED</div>
+          <h3 class="meet-cancelled-title">${esc(meet.title)}</h3>
+          <div class="meet-cancelled-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
+          ${meet.cancellationNote ? `<p class="meet-cancelled-note">${esc(meet.cancellationNote)}</p>` : ""}
+        </div>
+      `;
+      html += `</section>`;
+      return;
+    }
+
+    // Hero card
     html += `
-      <div class="card meet-cancelled-banner">
-        <div class="meet-cancelled-label">❌ MEET CANCELLED</div>
-        <h3 class="meet-cancelled-title">${esc(meet.title)}</h3>
-        <div class="meet-cancelled-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
-        ${meet.cancellationNote ? `<p class="meet-cancelled-note">${esc(meet.cancellationNote)}</p>` : ""}
+      <div class="card meet-hero">
+        <div class="meet-hero-top">
+          <span class="badge badge-meet">${idx === 0 ? "Next Meet" : "Upcoming Meet"}</span>
+          <span class="meet-countdown">${esc(countdownText)}</span>
+        </div>
+        <h3 class="meet-hero-title">${esc(meet.title)}</h3>
+        <div class="meet-hero-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
+        <div class="meet-hero-location">
+          📍 <a href="${esc(meet.mapUrl || "#")}" target="_blank" rel="noopener">${esc(meet.location)}</a>
+          <div class="meet-hero-address">${esc(meet.address || "")}</div>
+        </div>
+        ${meet.arrival ? `<div class="meet-hero-note"><strong>Arrival:</strong> ${esc(meet.arrival)}</div>` : ""}
+        ${meet.transportation ? `<div class="meet-hero-note"><strong>Transportation:</strong> ${esc(meet.transportation)}</div>` : ""}
+        ${meet.parking ? `<div class="meet-hero-note"><strong>Parking:</strong> ${esc(meet.parking)}</div>` : ""}
+        ${meet.eligibility ? `<div class="meet-hero-note"><strong>Who:</strong> ${esc(meet.eligibility)}</div>` : ""}
+        ${meet.uniform ? `<div class="meet-hero-note"><strong>Uniform:</strong> ${esc(meet.uniform)}</div>` : ""}
+        ${meet.teams ? `<div class="meet-hero-note"><strong>Teams:</strong> ${esc(meet.teams)}</div>` : ""}
+        ${meet.admission ? `<div class="meet-hero-note"><strong>Admission:</strong> ${esc(meet.admission)}</div>` : ""}
       </div>
     `;
-    el.innerHTML = html;
-    return;
-  }
 
-  // Hero card
-  html += `
-    <div class="card meet-hero">
-      <div class="meet-hero-top">
-        <span class="badge badge-meet">Meet Day</span>
-        <span class="meet-countdown">${esc(countdownText)}</span>
-      </div>
-      <h3 class="meet-hero-title">${esc(meet.title)}</h3>
-      <div class="meet-hero-date">${esc(meet.dayLabel || formatDate(meet.date))}</div>
-      <div class="meet-hero-location">
-        📍 <a href="${esc(meet.mapUrl || "#")}" target="_blank" rel="noopener">${esc(meet.location)}</a>
-        <div class="meet-hero-address">${esc(meet.address || "")}</div>
-      </div>
-      ${meet.arrival ? `<div class="meet-hero-note"><strong>Arrival:</strong> ${esc(meet.arrival)}</div>` : ""}
-      ${meet.transportation ? `<div class="meet-hero-note"><strong>Transportation:</strong> ${esc(meet.transportation)}</div>` : ""}
-      ${meet.parking ? `<div class="meet-hero-note"><strong>Parking:</strong> ${esc(meet.parking)}</div>` : ""}
-      ${meet.eligibility ? `<div class="meet-hero-note"><strong>Who:</strong> ${esc(meet.eligibility)}</div>` : ""}
-      ${meet.uniform ? `<div class="meet-hero-note"><strong>Uniform:</strong> ${esc(meet.uniform)}</div>` : ""}
-      ${meet.teams ? `<div class="meet-hero-note"><strong>Teams:</strong> ${esc(meet.teams)}</div>` : ""}
-      ${meet.admission ? `<div class="meet-hero-note"><strong>Admission:</strong> ${esc(meet.admission)}</div>` : ""}
-    </div>
-  `;
-
-  // Announcements
-  if (meet.announcements && meet.announcements.length) {
-    html += `<h2 class="section-title" style="margin-top:1.5rem;">Meet Announcements</h2>`;
-    meet.announcements.forEach((a) => {
-      html += `
-        <div class="card meet-announcement">
-          <h3>${esc(a.title)}</h3>
-          <p>${esc(a.body)}</p>
-        </div>
-      `;
-    });
-  }
-
-  // What to bring
-  if (meet.whatToBring && meet.whatToBring.length) {
-    html += `<h2 class="section-title" style="margin-top:1.5rem;">What to Bring</h2>`;
-    html += `<div class="card"><ul class="meet-bring-list">`;
-    meet.whatToBring.forEach((item) => {
-      html += `<li>${esc(item)}</li>`;
-    });
-    html += `</ul></div>`;
-  }
-
-  // Event schedule
-  if (meet.schedule && meet.schedule.length) {
-    html += `<h2 class="section-title" style="margin-top:1.5rem;">Event Schedule</h2>`;
-    html += `<div class="card meet-schedule-card">`;
-    html += `<div class="meet-schedule-list">`;
-    meet.schedule.forEach((row) => {
-      const typeClass = row.type ? `meet-row-${row.type}` : "";
-      html += `
-        <div class="meet-schedule-row ${typeClass}">
-          <div class="meet-schedule-time">${esc(row.time || "")}</div>
-          <div class="meet-schedule-event">
-            <div class="meet-schedule-name">${esc(row.event)}</div>
-            ${row.detail ? `<div class="meet-schedule-detail">${esc(row.detail)}</div>` : ""}
+    // Announcements
+    if (meet.announcements && meet.announcements.length) {
+      html += `<h2 class="section-title" style="margin-top:1.5rem;">Meet Announcements</h2>`;
+      meet.announcements.forEach((a) => {
+        html += `
+          <div class="card meet-announcement">
+            <h3>${esc(a.title)}</h3>
+            <p>${esc(a.body)}</p>
           </div>
-        </div>
-      `;
-    });
-    html += `</div></div>`;
-  }
+        `;
+      });
+    }
 
-  // Field event notes
-  if (meet.fieldEventNotes && meet.fieldEventNotes.length) {
-    html += `<h2 class="section-title" style="margin-top:1.5rem;">Field Event Notes</h2>`;
-    html += `<div class="card"><ul class="meet-bring-list">`;
-    meet.fieldEventNotes.forEach((item) => {
-      html += `<li>${esc(item)}</li>`;
-    });
-    html += `</ul></div>`;
-  }
+    // What to bring
+    if (meet.whatToBring && meet.whatToBring.length) {
+      html += `<h2 class="section-title" style="margin-top:1.5rem;">What to Bring</h2>`;
+      html += `<div class="card"><ul class="meet-bring-list">`;
+      meet.whatToBring.forEach((item) => {
+        html += `<li>${esc(item)}</li>`;
+      });
+      html += `</ul></div>`;
+    }
+
+    // Event schedule
+    if (meet.schedule && meet.schedule.length) {
+      html += `<h2 class="section-title" style="margin-top:1.5rem;">Event Schedule</h2>`;
+      html += `<div class="card meet-schedule-card">`;
+      html += `<div class="meet-schedule-list">`;
+      meet.schedule.forEach((row) => {
+        const typeClass = row.type ? `meet-row-${row.type}` : "";
+        html += `
+          <div class="meet-schedule-row ${typeClass}">
+            <div class="meet-schedule-time">${esc(row.time || "")}</div>
+            <div class="meet-schedule-event">
+              <div class="meet-schedule-name">${esc(row.event)}</div>
+              ${row.detail ? `<div class="meet-schedule-detail">${esc(row.detail)}</div>` : ""}
+            </div>
+          </div>
+        `;
+      });
+      html += `</div></div>`;
+    }
+
+    // Field event notes
+    if (meet.fieldEventNotes && meet.fieldEventNotes.length) {
+      html += `<h2 class="section-title" style="margin-top:1.5rem;">Field Event Notes</h2>`;
+      html += `<div class="card"><ul class="meet-bring-list">`;
+      meet.fieldEventNotes.forEach((item) => {
+        html += `<li>${esc(item)}</li>`;
+      });
+      html += `</ul></div>`;
+    }
+
+    html += `</section>`;
+
+    // Divider between meets
+    if (idx < upcomingKeys.length - 1) {
+      html += `<div class="meet-divider" aria-hidden="true"></div>`;
+    }
+  });
 
   el.innerHTML = html;
 }

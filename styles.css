@@ -1182,6 +1182,65 @@ body {
 }
 
 /* ---- MEET INFO PAGE ---- */
+.meet-jump-nav {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.meet-jump-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meet-jump-link {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  background: rgba(121, 14, 29, 0.06);
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+  border: 1px solid transparent;
+}
+
+.meet-jump-link:hover {
+  background: rgba(121, 14, 29, 0.12);
+}
+
+.meet-jump-current {
+  background: var(--primary);
+  color: #fff;
+}
+
+.meet-jump-current:hover {
+  background: var(--primary);
+  opacity: 0.9;
+  color: #fff;
+}
+
+.meet-section {
+  scroll-margin-top: 1rem;
+}
+
+.meet-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+  margin: 2.5rem 0;
+}
+
 .meet-hero {
   border-left: 4px solid var(--meet);
   background: linear-gradient(180deg, #fff 0%, #fff8f8 100%);

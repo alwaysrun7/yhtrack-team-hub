@@ -136,11 +136,11 @@ END:VEVENT
 BEGIN:VEVENT
 DTSTART;TZID=America/Chicago:20260509T090000
 DTEND;TZID=America/Chicago:20260509T120000
-SUMMARY:🏃 MEET — St. Paul Central H.S. (rescheduled\, MS only)
+SUMMARY:🏃 MEET — St. Paul Central H.S. (rescheduled)
 LOCATION:St. Paul Central HS — 275 Lexington Pkwy N\, St Paul\, MN 55104
-DESCRIPTION:Saturday morning · 9:00 AM start · MS only · Parents provide transportation · Done by ~12:00 PM. Events: 4x800\, 60mH\, 60m\, 1600\, 400 (no blocks)\, 800\, 200\, 1600 fast\, 4x400\, fun relays.
+DESCRIPTION:Saturday morning · 9:00 AM start · Grades 5–8 · Parents provide transportation · Done by ~12:00 PM. Events: 4x800\, 60mH\, 60m\, 1600\, 400 (no blocks)\, 800\, 200\, 1600 fast\, 4x400\, fun relays.
 STATUS:CONFIRMED
-SEQUENCE:2
+SEQUENCE:3
 UID:ya-track-20260509@yinghuaacademy.org
 END:VEVENT
 BEGIN:VEVENT

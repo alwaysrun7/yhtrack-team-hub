@@ -98,7 +98,7 @@ const SCHEDULE = [
       field: "Shot put and discus with throws coach.",
     }},
   // ---- RESCHEDULED MEET (Saturday, MS only) ----
-  { date: "2026-05-09", type: "meet", title: "St. Paul Central H.S. (rescheduled)", time: "9:00 AM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Saturday morning · MS only · Parents provide transportation · Done by ~12:00 PM" },
+  { date: "2026-05-09", type: "meet", title: "St. Paul Central H.S. (rescheduled)", time: "9:00 AM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Saturday morning · Grades 5–8 · Parents provide transportation · Done by ~12:00 PM" },
   // ---- WEEK 6 ----
   { date: "2026-05-12", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
@@ -139,7 +139,7 @@ const MEET_INFO = {
     mapUrl: "https://maps.google.com/?q=275+Lexington+Pkwy+N+St+Paul+MN+55104",
     arrival: "9:00 AM start. Plan to be at the track by 8:30 AM for warm-up. Done by ~12:00 PM.",
     transportation: "No bus — parents provide transportation to and from the meet.",
-    eligibility: "Middle school only.",
+    eligibility: "Grades 5–8.",
     announcements: [
       {
         title: "This is the rescheduled 4/18 meet",
@@ -156,7 +156,6 @@ const MEET_INFO = {
       "Water bottle (refillable)",
       "Snacks for the morning",
       "Warm layers — early Saturday morning",
-      "Camp chair or blanket — team camps go in the bleachers",
     ],
     schedule: [
       { time: "9:00 AM", event: "Opening of Field Events", type: "field" },
