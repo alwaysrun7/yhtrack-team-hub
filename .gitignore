@@ -1,0 +1,15 @@
+# Original photo/video archives downloaded from Drive — too big for GitHub.
+# We extract these locally, compress, and commit only the optimized files.
+*.zip
+
+# macOS
+.DS_Store
+
+# Editor / temp
+~$*
+*~
+*.tmp
+*.bak
+
+# Excel lock files (created when a workbook is open)
+~$*.xlsx

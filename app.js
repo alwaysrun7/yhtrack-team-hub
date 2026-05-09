@@ -93,17 +93,20 @@ function renderAnnouncements() {
     </div>
   `).join("");
 
-  // Upcoming meet callout (links to Next Meets page) OR recent result callout (links to Results page)
-  const upcomingCallout = renderMeetCallout();
-  if (upcomingCallout) {
-    html += upcomingCallout;
-  } else {
-    html += renderLatestResultCallout();
-  }
+  // Show BOTH callouts when applicable: next meet (top) + last meet results (below).
+  // Each function returns "" when not applicable, so they auto-hide.
+  html += renderMeetCallout();
+  html += renderLatestResultCallout();
 
-  html += `<div class="announcements-hero">
-    <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/04/athletic_dragon-removebg-preview.png" alt="Dragons Athletics" class="hero-dragon">
-  </div>`;
+  // Hero photo mashup from the latest meet (falls back to the dragon logo if no photos)
+  const mashup = renderMeetHeroMashup();
+  if (mashup) {
+    html += mashup;
+  } else {
+    html += `<div class="announcements-hero">
+      <img src="https://www.yinghuaacademy.org/wp-content/uploads/2024/04/athletic_dragon-removebg-preview.png" alt="Dragons Athletics" class="hero-dragon">
+    </div>`;
+  }
 
   // Weather widget for next practice
   html += renderWeatherWidget();
@@ -135,7 +138,8 @@ function renderMeetCallout() {
   const dates = Object.keys(MEET_INFO).sort();
   let meetKey = null;
   for (const d of dates) {
-    if (d >= todayStr) {
+    // Skip meets that have already happened (results posted) so we surface the actual next meet
+    if (d >= todayStr && !meetHasResults(d)) {
       meetKey = d;
       break;
     }
@@ -166,6 +170,36 @@ function renderMeetCallout() {
       <div class="meet-callout-side">
         <div class="meet-callout-countdown">${esc(countdownText)}</div>
         <div class="meet-callout-cta">View meet info →</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMeetHeroMashup() {
+  // Picks ~6 photos from the most recent meet and renders a CSS-grid mashup.
+  // Clicking opens the Results page.
+  if (typeof RESULTS === "undefined" || !RESULTS.length) return "";
+  const sorted = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date));
+  const latest = sorted[0];
+  if (!latest || !latest.photos || latest.photos.length < 4) return "";
+
+  // Pick 6 photos spread across the photo array for variety
+  const photos = latest.photos;
+  const sample = [];
+  const count = Math.min(6, photos.length);
+  for (let i = 0; i < count; i++) {
+    const idx = Math.floor((i / count) * photos.length);
+    sample.push(photos[idx]);
+  }
+
+  return `
+    <div class="hero-mashup" onclick="switchSection('results')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();switchSection('results');}" aria-label="View meet results from ${esc(latest.meet)}">
+      <div class="hero-mashup-grid">
+        ${sample.map((p, i) => `<div class="hero-mashup-tile hero-mashup-tile-${i}"><img src="${esc(p.src)}" alt="" loading="lazy"></div>`).join("")}
+      </div>
+      <div class="hero-mashup-overlay">
+        <div class="hero-mashup-label">📸 ${esc(latest.meet)}</div>
+        <div class="hero-mashup-cta">View all ${photos.length} photos →</div>
       </div>
     </div>
   `;
@@ -231,7 +265,7 @@ function renderNextEventCard() {
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   let next = null;
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
     if (s.date >= todayStr && !isOff) {
       next = s;
       break;
@@ -288,7 +322,7 @@ function renderWeatherWidget() {
   let nextPractice = null;
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
     if (s.date >= todayStr && !isOff) {
       nextPractice = s;
       break;
@@ -338,7 +372,7 @@ function fetchWeather() {
       let nextDate = null;
       const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
       for (const s of sorted) {
-        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled;
+        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
         if (s.date >= todayStr && !isOff) {
           nextDate = s.date;
           break;
@@ -432,7 +466,7 @@ function renderSchedule() {
   const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
   let nextIdx = -1;
   for (let i = 0; i < sorted.length; i++) {
-    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice") || sorted[i].cancelled;
+    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice") || sorted[i].cancelled || (sorted[i].type === "meet" && meetHasResults(sorted[i].date));
     if (sorted[i].date >= todayStr && !isOff) {
       nextIdx = i;
       break;
@@ -519,7 +553,8 @@ function renderMeet() {
   const dayMs = 1000 * 60 * 60 * 24;
 
   const dates = Object.keys(MEET_INFO).sort();
-  let upcomingKeys = dates.filter((d) => d >= todayStr);
+  // Skip past meets (results already posted) so the page shows actual upcoming meets
+  let upcomingKeys = dates.filter((d) => d >= todayStr && !meetHasResults(d));
 
   // Fallback: if no upcoming meet, show the most recent one
   if (!upcomingKeys.length && dates.length) {
@@ -772,6 +807,75 @@ function renderResults() {
   setupResultsLightbox();
 }
 
+// True when a meet on this date has results posted (i.e. it's already been run).
+function meetHasResults(date) {
+  if (typeof RESULTS === "undefined") return false;
+  return RESULTS.some((r) => r.date === date);
+}
+
+// ---- PB / Personal Record helpers ----
+function isFieldEventName(name) {
+  const n = (name || "").toLowerCase();
+  return n.includes("shot put") || n.includes("discus") || n.includes("long jump") ||
+         n.includes("triple jump") || n.includes("high jump") || n.includes("javelin");
+}
+
+function parseMarkValue(mark) {
+  if (mark === null || mark === undefined || mark === "") return null;
+  const s = String(mark).trim();
+  // feet'inches" e.g. "22' 10\"", "22' 10.5\"", "22'10\""
+  const ftMatch = s.match(/^(\d+(?:\.\d+)?)\s*['']\s*(\d+(?:\.\d+)?)?\s*["]?$/);
+  if (ftMatch) {
+    return parseFloat(ftMatch[1]) * 12 + (parseFloat(ftMatch[2]) || 0);
+  }
+  // M:SS.SS (or M:SS)
+  if (s.includes(":")) {
+    const parts = s.split(":");
+    const mins = parseFloat(parts[0]);
+    const secs = parseFloat(parts[1]);
+    if (isNaN(mins) || isNaN(secs)) return null;
+    return mins * 60 + secs;
+  }
+  const v = parseFloat(s);
+  return isNaN(v) ? null : v;
+}
+
+// Compute each athlete's best mark per event across ALL RESULTS (used for PB markers)
+let _PB_CACHE = null;
+function getAthletePBs() {
+  if (_PB_CACHE) return _PB_CACHE;
+  const pbs = {}; // pbs[athlete][eventName] = bestVal
+  if (typeof RESULTS === "undefined") return pbs;
+  RESULTS.forEach((meet) => {
+    (meet.events || []).forEach((evt) => {
+      const field = isFieldEventName(evt.name);
+      // For relays, the "PB" concept doesn't really apply at the individual level — skip.
+      if (evt.relay) return;
+      (evt.results || []).forEach((res) => {
+        const val = parseMarkValue(res.mark);
+        if (val === null) return;
+        if (!pbs[res.athlete]) pbs[res.athlete] = {};
+        const cur = pbs[res.athlete][evt.name];
+        const better = field ? (cur === undefined || val > cur) : (cur === undefined || val < cur);
+        if (better) pbs[res.athlete][evt.name] = val;
+      });
+    });
+  });
+  _PB_CACHE = pbs;
+  return pbs;
+}
+
+function isPersonalBest(athlete, eventName, mark, isRelay) {
+  if (isRelay) return false;
+  const val = parseMarkValue(mark);
+  if (val === null) return false;
+  const pbs = getAthletePBs();
+  const best = pbs[athlete] && pbs[athlete][eventName];
+  if (best === undefined) return false;
+  // Allow tiny floating-point tolerance
+  return Math.abs(val - best) < 0.0001;
+}
+
 function renderMeetResult(r, idx) {
   const athleteCount = new Set();
   (r.events || []).forEach((e) => (e.results || []).forEach((res) => athleteCount.add(res.athlete)));
@@ -782,7 +886,7 @@ function renderMeetResult(r, idx) {
   const field = (r.events || []).filter((e) => e.kind === "field");
 
   const orderedEvents = [...running, ...relays, ...field];
-  const heatOrder = ["6/7 Girls", "8 Girls", "6/7 Boys", "8 Boys"];
+  const heatOrder = ["MS Girls", "6/7 Girls", "8 Girls", "MS Boys", "6/7 Boys", "8 Boys"];
 
   const eventBlock = (evt) => {
     // For relays: group by mark (time). For individual: group by heat.
@@ -817,12 +921,14 @@ function renderMeetResult(r, idx) {
           <div class="result-heat">
             <div class="result-heat-label">${esc(g.label)}</div>
             <div class="result-heat-rows">
-              ${g.athletes.map((a) => `
+              ${g.athletes.map((a) => {
+                const pb = isPersonalBest(a.athlete, evt.name, a.mark, evt.relay);
+                return `
                 <div class="result-row">
                   <div class="result-athlete">${esc(a.athlete)}${a.grade ? `<span class="result-gr">gr${a.grade}</span>` : ""}</div>
-                  <div class="result-mark">${esc(a.mark)}</div>
+                  <div class="result-mark">${esc(a.mark)}${pb ? ' <span class="result-pb">PB</span>' : ""}</div>
                 </div>
-              `).join("")}
+              `;}).join("")}
             </div>
           </div>
         `).join("")}
@@ -845,6 +951,7 @@ function renderMeetResult(r, idx) {
         </div>
       </div>
       ${r.teamRecap ? `<p class="result-recap">${esc(r.teamRecap)}</p>` : ""}
+      ${r.resultsUrl ? `<p class="result-extlink"><a href="${esc(r.resultsUrl)}" target="_blank" rel="noopener">${esc(r.resultsUrlLabel || "Full meet results →")}</a></p>` : ""}
 
       ${photos.length ? `
         <div class="result-photos-block">
@@ -854,6 +961,20 @@ function renderMeetResult(r, idx) {
               <button class="result-photo" data-meet-idx="${idx}" data-photo-idx="${i}" aria-label="Open photo ${i + 1} of ${photos.length}">
                 <img src="${esc(p.src)}" loading="lazy" alt="Team photo ${i + 1}">
               </button>
+            `).join("")}
+          </div>
+        </div>
+      ` : ""}
+
+      ${(r.videos && r.videos.length) ? `
+        <div class="result-videos-block">
+          <div class="result-section-title">Videos</div>
+          <div class="result-video-grid">
+            ${r.videos.map((v, i) => `
+              <video class="result-video" controls preload="metadata" playsinline aria-label="Video ${i + 1} of ${r.videos.length}">
+                <source src="${esc(v.src)}" type="video/mp4">
+                Your browser does not support video playback.
+              </video>
             `).join("")}
           </div>
         </div>
