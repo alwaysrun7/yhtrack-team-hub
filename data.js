@@ -100,26 +100,28 @@ const SCHEDULE = [
   // ---- RESCHEDULED MEET (Saturday, MS only) ----
   { date: "2026-05-09", type: "meet", title: "St. Paul Central H.S. (rescheduled)", time: "9:00 AM", location: "St. Paul Central HS — 275 Lexington Pkwy N, St Paul, MN 55104", notes: "Saturday morning · Grades 5–8 · Parents provide transportation · Done by ~12:00 PM" },
   // ---- WEEK 6 ----
+  // NOTE: Week 6 throws swap — KP at practice Tue 5/12, OUT Thu 5/14.
   { date: "2026-05-12", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m.",
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
-      field: "Practice hurdles, long jump, and relay handoffs.",
+      field: "Shot put and discus with throws coach (swapped from Thu this week).",
     }},
   { date: "2026-05-13", type: "meet", title: "Prior Lake", time: "4:00 PM", location: "Prior Lake HS — 7575 150th St W, Savage, MN 55378", notes: "Grades 6-8 · Dismiss 2:50 · Bus 3:00" },
   { date: "2026-05-14", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",
-      field: "Shot put and discus with throws coach.",
+      field: "Practice hurdles, long jump, and relay handoffs (throws coach out this Thursday).",
     }},
   { date: "2026-05-15", type: "meet", title: "TCGIS", time: "5:00–8:00 PM", location: "Concordia Academy — 2400 Dale St N, Roseville, MN 55113", notes: "Grades 5-8 · No bus · Parents provide transportation" },
   // ---- WEEK 7 ----
+  // NOTE: Week 7 — KP at practice Tue 5/19 for throws.
   { date: "2026-05-19", type: "practice", title: "Pre-Meet Practice — Week 7", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM",
     plan: {
       sprints: "Pre-meet: warm-up + 2x300m, 2x100m.",
       distance: "Pre-meet: warm-up + 2 laps + 2 straightaway striders.",
-      field: "Practice hurdles, long jump, and relay handoffs.",
+      field: "Shot put and discus with throws coach.",
     }},
   { date: "2026-05-21", type: "meet", title: "Yinghua In-House Meet & End of Season Party", time: "3:45 PM", location: "Yinghua / NE Park", notes: "Grades 5-8 · Dismiss 3:30" },
 ];
@@ -509,16 +511,6 @@ const RESULTS = [
       { src: "photos/stpaul-2026-05-09/PXL_20260509_165211917.jpg" },
       { src: "photos/stpaul-2026-05-09/PXL_20260509_165436033.jpg" },
     ],
-    videos: [
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_143813929.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144305180.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144333747.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144459571.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144527846.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144730937.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_144759314.mp4" },
-      { src: "photos/stpaul-2026-05-09/PXL_20260509_165605657.mp4" },
-    ],
     events: [
       {
         name: "100m Dash",
@@ -795,7 +787,7 @@ const RESULTS = [
         results: [
           { athlete: "Reuben Addington", grade: 6, gender: "M", heat: "6/7 Boys", mark: "15' 11\"" },
           { athlete: "Nathan Coblentz", grade: 8, gender: "M", heat: "8 Boys", mark: "20' 7\"" },
-          { athlete: "Elyse Folbrecht", grade: 6, gender: "F", heat: "6/7 Girls", mark: "20' 1\"" },
+          { athlete: "Elyse Folbrecht", grade: 6, gender: "F", heat: "6/7 Girls", mark: "20' 10\"" },
           { athlete: "Mattias Kunc", grade: 8, gender: "M", heat: "8 Boys", mark: "21' 6\"" },
         ],
       },
@@ -804,7 +796,7 @@ const RESULTS = [
         kind: "field",
         relay: false,
         results: [
-          { athlete: "Grayson Chon", grade: 7, gender: "M", heat: "6/7 Boys", mark: "22' 6\"" },
+          { athlete: "Grayson Chon", grade: 7, gender: "M", heat: "6/7 Boys", mark: "22' 6.5\"" },
           { athlete: "Cooper Coblentz", grade: 8, gender: "M", heat: "8 Boys", mark: "49' 9\"" },
           { athlete: "Elyse Folbrecht", grade: 6, gender: "F", heat: "6/7 Girls", mark: "36' 3\"" },
           { athlete: "Vienna Haas", grade: 7, gender: "F", heat: "6/7 Girls", mark: "44' 3\"" },

@@ -776,12 +776,31 @@ function renderResults() {
   // Sort newest first
   const sorted = [...RESULTS].sort((a, b) => b.date.localeCompare(a.date));
 
-  el.innerHTML = sorted.map((r, idx) => {
+  // Jump-to dropdown when there are multiple meets
+  let html = "";
+  if (sorted.length > 1) {
+    html += `
+      <div class="results-jump">
+        <label for="results-jump-select" class="results-jump-label">Jump to:</label>
+        <select id="results-jump-select" class="results-jump-select" aria-label="Jump to a meet">
+          <option value="">— Select a meet —</option>
+          ${sorted.map((r) => {
+            const d = new Date(r.date + "T12:00:00");
+            const dateLabel = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+            return `<option value="result-${esc(r.date)}">${esc(dateLabel)} — ${esc(r.meet)}</option>`;
+          }).join("")}
+        </select>
+      </div>
+    `;
+  }
+
+  html += sorted.map((r, idx) => {
+    const anchor = `id="result-${esc(r.date)}"`;
     // New format: events + photos; old format: highlights
-    if (r.events) return renderMeetResult(r, idx);
+    if (r.events) return renderMeetResult(r, idx, anchor);
     // Legacy fallback
     return `
-      <div class="card">
+      <div class="card" ${anchor}>
         <div class="result-meet-header">
           <div>
             <h3>${esc(r.meet)}</h3>
@@ -802,6 +821,20 @@ function renderResults() {
       </div>
     `;
   }).join("");
+  el.innerHTML = html;
+
+  // Wire the jump-to dropdown
+  const jumpSelect = document.getElementById("results-jump-select");
+  if (jumpSelect) {
+    jumpSelect.addEventListener("change", (e) => {
+      const id = e.target.value;
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Reset so picking the same meet a second time still scrolls
+      e.target.value = "";
+    });
+  }
 
   // Wire lightbox
   setupResultsLightbox();
@@ -876,7 +909,7 @@ function isPersonalBest(athlete, eventName, mark, isRelay) {
   return Math.abs(val - best) < 0.0001;
 }
 
-function renderMeetResult(r, idx) {
+function renderMeetResult(r, idx, anchor) {
   const athleteCount = new Set();
   (r.events || []).forEach((e) => (e.results || []).forEach((res) => athleteCount.add(res.athlete)));
 
@@ -939,7 +972,7 @@ function renderMeetResult(r, idx) {
   const photos = r.photos || [];
 
   return `
-    <div class="card result-meet">
+    <div class="card result-meet" ${anchor || ""}>
       <div class="result-meet-hero">
         <div>
           <h3>${esc(r.meet)}</h3>
