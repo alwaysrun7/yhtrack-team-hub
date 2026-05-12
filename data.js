@@ -149,7 +149,7 @@ const MEET_INFO = {
       },
       {
         title: "Tell a coach which events you want to run",
-        body: "Talk to Coach Drew, Coach David, or Coach Lily at Thursday's pre-meet practice (5/7) so we can build heat sheets.",
+        body: "Talk to Coach Drew or Coach Lily at Thursday's pre-meet practice (5/7) so we can build heat sheets.",
       },
     ],
     whatToBring: [
@@ -174,24 +174,92 @@ const MEET_INFO = {
       { time: "", event: "4x100m — Coaches / Parents Relay", detail: "Come cheer on the grown-ups!", type: "fun" },
     ],
   },
+  "2026-05-15": {
+    title: "TCGIS Muddy Water Relays",
+    date: "2026-05-15",
+    dayLabel: "Friday, May 15",
+    location: "Concordia Academy",
+    address: "2400 Dale St N, Roseville, MN 55113",
+    mapUrl: "https://maps.google.com/?q=2400+Dale+St+N+Roseville+MN+55113",
+    arrival: "Arrive at Concordia by 5:00 PM · Warm-ups + coach/volunteer meeting 5:15 PM · Meet starts 5:45 PM · Team cool-down 8:00 PM · Pickup 8:15 PM.",
+    transportation: "No bus — parents provide transportation to and from the meet.",
+    eligibility: "Grades 5–8. Boys and girls scored separately.",
+    announcements: [
+      {
+        title: "Almost everything is a relay!",
+        body: "Track events are all relays (4 athletes per team) except the Elimination Race. Field events are also team relays — 4 athletes each, 3 attempts apiece, with the best mark per athlete added together for the team's score.",
+      },
+      {
+        title: "Athletes are responsible for arriving on time",
+        body: "Track relays will NOT wait for late athletes. Coaches will help remind kids, but athletes need to head to their event right when the previous one starts.",
+      },
+      {
+        title: "Wear the uniform, dress for cool weather",
+        body: "Uniform when competing; longer warmup clothing when not. Bring 2-3 full water bottles — it's a 3-hour meet.",
+      },
+      {
+        title: "Schools attending (2026)",
+        body: "Agape Christi, Avail Academy, Avalon, Chapel Hill, Christian Heritage, Concordia Academy, DaVinci Academy, Great Oaks, Lake Country, NOVA Classical, Our Lady of Peace, TCGIS, Yinghua.",
+      },
+    ],
+    whatToBring: [
+      "Yinghua track uniform / team shirt",
+      "2–3 full water bottles",
+      "Longer warmup clothing for between events",
+      "Running shoes + spikes if you have them",
+      "Snacks for a 3-hour evening meet",
+    ],
+    schedule: [
+      { time: "5:00 PM", event: "Athletes arrive at Concordia Academy", type: "note" },
+      { time: "5:15 PM", event: "Warm-ups · Volunteer & coach meeting", type: "note" },
+      { time: "5:30 PM", event: "Event check-ins begin", type: "note" },
+      { time: "5:45 PM", event: "Meet starts — Rolling Schedule", type: "note" },
+      { time: "", event: "4x100m Relay", type: "track" },
+      { time: "", event: "Distance Medley Relay (1200–400–800–1600)", type: "track" },
+      { time: "", event: "Sprint Medley Relay (100–100–200–400)", type: "track" },
+      { time: "", event: "4x800m Relay", type: "track" },
+      { time: "", event: "4x200m Relay", type: "track" },
+      { time: "", event: "Elimination Race", detail: "Distance race — last runner eliminated each 400m until one remains. Lapped runners also out. Only individual event of the meet.", type: "fun" },
+      { time: "", event: "4x400m Relay", type: "track" },
+      { time: "", event: "Field Event Relays (concurrent)", detail: "4x Shot Put · 4x Discus · 4x Long Jump", type: "field" },
+      { time: "8:00 PM", event: "Team cool-down", type: "note" },
+      { time: "8:15 PM", event: "Pickup from Concordia Academy", type: "note" },
+    ],
+    fieldEventNotes: [
+      "Field event relays: 4 athletes per team, 3 attempts each. Best mark per athlete added → team score.",
+      "Shot Put (6 lb) and Discus (1 kg) are provided by the host. Bring your own relay batons.",
+      "If a relay has fewer than 4 athletes, the team can still compete — track relays won't be scored, but field relay marks still add up.",
+      "Scoring: 1st = 10 pts, 2nd = 9 pts, ... 10th = 1 pt, 11th+ = 0. Only top 2 relay teams per school score per event.",
+      "Max 4 events per athlete (track + field combined).",
+    ],
+  },
   "2026-05-13": {
     title: "Prior Lake Meet",
     date: "2026-05-13",
     dayLabel: "Wednesday, May 13",
     location: "Prior Lake High School",
-    address: "7575 150th St W, Savage, MN 55378",
-    mapUrl: "https://maps.google.com/?q=7575+150th+St+W+Savage+MN+55378",
-    arrival: "Meet starts at 4:00 PM. Athletes ride the bus from Yinghua (one-way). Dismiss 2:50 · Bus 3:00.",
-    transportation: "Bus from Yinghua (one-way only). Parents pick up from the meet around 6:00 PM.",
-    eligibility: "Grades 6–8 only.",
+    address: "7575 W 150th St, Savage, MN 55378",
+    mapUrl: "https://maps.google.com/?q=7575+W+150th+St+Savage+MN+55378",
+    arrival: "Meet starts at 4:15 PM (running events, rolling start). Field events begin around 4:00 PM. Bus arrives after 3:15 PM per host's request.",
+    transportation: "Bus from Yinghua (one-way only). Dismiss 2:50 · Bus 3:00 · Parents pick up from the meet around 6:00 PM.",
+    eligibility: "Grades 6–8 only. Heats run by grade level; sixth graders may compete in 7th-grade events.",
+    teams: "Lakeville North · Lakeville South · Northfield · Yinghua Academy",
     announcements: [
       {
         title: "Tell a coach which events you want to run",
-        body: "We'll finalize entries at Tuesday's pre-meet practice (5/12). Talk to Coach Drew, Coach David, or Coach Lily about which events you want to do.",
+        body: "We'll finalize entries at Tuesday's pre-meet practice (5/12). Talk to Coach Drew or Coach Lily about which events you want to do.",
       },
       {
-        title: "Bring your own batons",
-        body: "Each team brings their own relay batons. Coaches will have a set at the meet.",
+        title: "Teams bring their own throws + batons",
+        body: "Yinghua brings our own discus, shot puts, and relay batons. Coaches will have everything at the meet.",
+      },
+      {
+        title: "Stadium etiquette",
+        body: "Team camps set up in the stadium bleachers — stay off the infield. No gum, candy, sunflower seeds, or soda on the turf. Athletes & spectators stay outside the track fence unless competing.",
+      },
+      {
+        title: "Concessions on site",
+        body: "PL Boys Track Boosters are running concessions — bring cash if you want snacks or drinks.",
       },
     ],
     whatToBring: [
@@ -200,8 +268,28 @@ const MEET_INFO = {
       "Water bottle (refillable)",
       "Snacks — meet runs into the evening",
       "Warm layers — Wednesday evening can cool off",
+      "Cash for concessions (optional)",
     ],
-    // Event schedule TBD — will update once we have the host's order of events.
+    schedule: [
+      { time: "~4:00 PM", event: "Field Events Open", detail: "Athletes plan jumps and throws around their running events.", type: "field" },
+      { time: "4:15 PM", event: "Running Events Begin — Rolling Start", type: "note" },
+      { time: "", event: "100m Low Hurdles", detail: "10 hurdles at lowest setting · unlimited entries", type: "track" },
+      { time: "", event: "100m Dash", detail: "Unlimited entries", type: "track" },
+      { time: "", event: "1600m Run", detail: "Girls first heat, boys second heat · unlimited entries", type: "track" },
+      { time: "", event: "400m Dash", detail: "Unlimited entries", type: "track" },
+      { time: "", event: "4x100m Relay", detail: "Multiple teams allowed", type: "track" },
+      { time: "", event: "200m Dash", detail: "Unlimited entries", type: "track" },
+      { time: "", event: "800m Run", detail: "Unlimited entries", type: "track" },
+      { time: "", event: "Sprint Medley Relay (100-100-200-400)", detail: "Multiple teams allowed", type: "track" },
+    ],
+    fieldEventNotes: [
+      "High Jump: Girls start at 3'6\" · Boys start at 4'0\" · 2\" progression · 3 attempts.",
+      "Long Jump: 3 attempts · boys on one runway, girls on the other.",
+      "Shot Put: 4 kg (women's HS weight) · 3 attempts.",
+      "Discus: HS girls discus weight · 3 attempts.",
+      "Max 4 events per athlete (example: 2 running + 2 field).",
+      "Meet is NOT scored. Running events are hand-timed — athletes should report their time/mark to coaches.",
+    ],
   },
   "2026-05-06": {
     title: "Olson MS — Bloomington Track Meet",
@@ -217,7 +305,7 @@ const MEET_INFO = {
     announcements: [
       {
         title: "Tell a coach which events you want to run",
-        body: "Talk to Coach Drew, Coach David, or Coach Lily at Tuesday's pre-meet practice (5/5) and let them know which events you'd like to do.",
+        body: "Talk to Coach Drew or Coach Lily at Tuesday's pre-meet practice (5/5) and let them know which events you'd like to do.",
       },
       {
         title: "Bring your own batons",
@@ -381,7 +469,6 @@ const ROSTER = [
 const COACHES = [
   // Head Coaches
   { name: "Drew Addington", role: "Head Coach — Distance 800/1600, Hurdles", email: "drewadding@gmail.com" },
-  { name: "David Lewis", role: "Head Coach — Middle Distance, Jumps", email: "david.lewis@yinghuaacademy.org" },
   { name: "Lily Ciske", role: "Head Coach — Sprints, Jumps", email: "lilian.ciske@mail.northcentral.edu" },
   // Assistant Coaches
   { name: "Angela Bortel", role: "Assistant Coach", email: "" },
