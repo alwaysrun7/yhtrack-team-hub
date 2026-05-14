@@ -675,9 +675,10 @@ function renderMeet() {
       html += `</div></div>`;
     }
 
-    // Field event notes
+    // Field event notes (or general meet notes if no field events)
     if (meet.fieldEventNotes && meet.fieldEventNotes.length) {
-      html += `<h2 class="section-title" style="margin-top:1.5rem;">Field Event Notes</h2>`;
+      const notesTitle = meet.notesTitle || "Field Event Notes";
+      html += `<h2 class="section-title" style="margin-top:1.5rem;">${esc(notesTitle)}</h2>`;
       html += `<div class="card"><ul class="meet-bring-list">`;
       meet.fieldEventNotes.forEach((item) => {
         html += `<li>${esc(item)}</li>`;
