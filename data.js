@@ -108,7 +108,7 @@ const SCHEDULE = [
       field: "Shot put and discus with throws coach (swapped from Thu this week).",
     }},
   { date: "2026-05-13", type: "meet", title: "Prior Lake", time: "4:00 PM", location: "Prior Lake HS — 7575 150th St W, Savage, MN 55378", notes: "Grades 6-8 · Dismiss 2:50 · Bus 3:00" },
-  { date: "2026-05-14", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available",
+  { date: "2026-05-14", type: "practice", title: "Pre-Meet Practice — Week 6", time: "3:30–5:00 PM", location: "Field behind school", notes: "Pickup at 5:00 PM · Gym available", completed: true,
     plan: {
       sprints: "Pre-meet: warm-up + 2x200m, 2x100m at 75%.",
       distance: "Pre-meet: 15 min easy running + 3x30 sec striders.",

@@ -265,7 +265,7 @@ function renderNextEventCard() {
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   let next = null;
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || s.completed || (s.type === "meet" && meetHasResults(s.date));
     if (s.date >= todayStr && !isOff) {
       next = s;
       break;
@@ -322,7 +322,7 @@ function renderWeatherWidget() {
   let nextPractice = null;
   const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
   for (const s of sorted) {
-    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
+    const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || s.completed || (s.type === "meet" && meetHasResults(s.date));
     if (s.date >= todayStr && !isOff) {
       nextPractice = s;
       break;
@@ -372,7 +372,7 @@ function fetchWeather() {
       let nextDate = null;
       const sorted = [...SCHEDULE].sort((a, b) => a.date.localeCompare(b.date));
       for (const s of sorted) {
-        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || (s.type === "meet" && meetHasResults(s.date));
+        const isOff = s.title.toLowerCase().includes("no school") || s.title.toLowerCase().includes("no practice") || s.cancelled || s.completed || (s.type === "meet" && meetHasResults(s.date));
         if (s.date >= todayStr && !isOff) {
           nextDate = s.date;
           break;
@@ -466,7 +466,7 @@ function renderSchedule() {
   const todayStr = refDate.getFullYear() + "-" + String(refDate.getMonth() + 1).padStart(2, "0") + "-" + String(refDate.getDate()).padStart(2, "0");
   let nextIdx = -1;
   for (let i = 0; i < sorted.length; i++) {
-    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice") || sorted[i].cancelled || (sorted[i].type === "meet" && meetHasResults(sorted[i].date));
+    const isOff = sorted[i].title.toLowerCase().includes("no school") || sorted[i].title.toLowerCase().includes("no practice") || sorted[i].cancelled || sorted[i].completed || (sorted[i].type === "meet" && meetHasResults(sorted[i].date));
     if (sorted[i].date >= todayStr && !isOff) {
       nextIdx = i;
       break;
