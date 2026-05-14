@@ -633,6 +633,27 @@ const RESULTS = [
           { athlete: "Mattias Kunc", grade: 8, gender: "M", heat: "8 Boys", mark: "13' 2\"" },
         ],
       },
+      {
+        name: "Shot Put",
+        kind: "field",
+        relay: false,
+        results: [
+          { athlete: "Elyse Folbrecht", grade: 6, gender: "F", heat: "6/7 Girls", mark: "20' 9\"" },
+          { athlete: "Reuben Addington", grade: 6, gender: "M", heat: "6/7 Boys", mark: "19' 3\"" },
+        ],
+      },
+      {
+        name: "Discus",
+        kind: "field",
+        relay: false,
+        results: [
+          { athlete: "Elyse Folbrecht", grade: 6, gender: "F", heat: "6/7 Girls", mark: "45' 3\"" },
+          { athlete: "Devin Lindquist", grade: 6, gender: "M", heat: "6/7 Boys", mark: "57' 11\"" },
+          { athlete: "Marcus Kunc", grade: 6, gender: "M", heat: "6/7 Boys", mark: "27' 2\"" },
+          { athlete: "Reuben Addington", grade: 6, gender: "M", heat: "6/7 Boys", mark: "35' 7\"" },
+          { athlete: "Mattias Kunc", grade: 8, gender: "M", heat: "8 Boys", mark: "50' 11\"" },
+        ],
+      },
     ],
   },
   {
